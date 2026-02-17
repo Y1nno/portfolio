@@ -14,7 +14,9 @@
   top: -24px;
   width: min(280px, 60vw);
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-soft), transparent);
+  background: linear-gradient(90deg, var(--accent-strong), var(--accent-soft), transparent);
+  background-size: 200% 100%;
+  animation: accent-shift 8s linear infinite;
 }
 
 .hero h1 {
@@ -54,16 +56,26 @@ section h2 {
 .project {
   grid-column: span 6;
   padding: 20px;
-  background: linear-gradient(165deg, var(--surface-2), var(--surface));
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--surface-2) 88%, var(--accent) 12%),
+    var(--surface)
+  );
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-position 240ms ease;
+  background-size: 140% 140%;
 }
 
 .project:hover {
-  border-color: var(--border-strong);
-  transform: translateY(-2px);
-  box-shadow: 0 16px 36px rgb(0 0 0 / 35%), 0 0 0 1px rgb(140 199 255 / 18%);
+  border-color: var(--accent-soft);
+  transform: translateY(-3px);
+  background-position: 100% 0;
+  box-shadow: 0 16px 36px rgb(0 0 0 / 38%), 0 0 0 1px rgb(85 0 0 / 35%), 0 0 26px rgb(85 0 0 / 20%);
 }
 
 .project h3 {
@@ -86,7 +98,7 @@ section h2 {
 .project a {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--accent-soft);
+  color: var(--accent-strong);
 }
 
 /* About */
@@ -102,7 +114,16 @@ section h2 {
 }
 
 .contact a:hover {
-  color: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+@keyframes accent-shift {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 200% 50%;
+  }
 }
 
 /* Responsive */
