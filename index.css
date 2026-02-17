@@ -4,6 +4,17 @@
 .hero {
   margin-top: 64px;
   max-width: 720px;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -24px;
+  width: min(280px, 60vw);
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-soft), transparent);
 }
 
 .hero h1 {
@@ -11,6 +22,7 @@
   line-height: 1.05;
   margin: 0 0 18px;
   letter-spacing: -0.5px;
+  text-wrap: balance;
 }
 
 .hero p {
@@ -42,12 +54,17 @@ section h2 {
 .project {
   grid-column: span 6;
   padding: 20px;
-  background: var(--surface);
+  background: linear-gradient(165deg, var(--surface-2), var(--surface));
   border: 1px solid var(--border);
-  transition: border-color 150ms ease;
+  border-radius: var(--radius);
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 
-.project:hover { border-color: var(--accent); }
+.project:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgb(0 0 0 / 35%), 0 0 0 1px rgb(140 199 255 / 18%);
+}
 
 .project h3 {
   margin: 0 0 8px;
@@ -69,6 +86,7 @@ section h2 {
 .project a {
   font-size: 0.9rem;
   font-weight: 600;
+  color: var(--accent-soft);
 }
 
 /* About */
@@ -80,6 +98,11 @@ section h2 {
   display: inline-block;
   margin-right: 18px;
   font-weight: 600;
+  color: var(--muted);
+}
+
+.contact a:hover {
+  color: var(--accent-soft);
 }
 
 /* Responsive */
