@@ -1,0 +1,88 @@
+/* index.css */
+
+/* Hero */
+.hero {
+  margin-top: 64px;
+  max-width: 720px;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  line-height: 1.05;
+  margin: 0 0 18px;
+  letter-spacing: -0.5px;
+}
+
+.hero p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin: 0 0 28px;
+}
+
+/* Section spacing (index only) */
+section {
+  margin-top: 96px;
+}
+
+section h2 {
+  font-size: 1.1rem;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  color: var(--muted);
+}
+
+/* Projects */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+.project {
+  grid-column: span 6;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: border-color 150ms ease;
+}
+
+.project:hover { border-color: var(--accent); }
+
+.project h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.project .meta {
+  font-size: 0.85rem;
+  color: var(--faint);
+  margin-bottom: 12px;
+}
+
+.project p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.project a {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* About */
+.about { max-width: 720px; }
+.about p { margin-bottom: 16px; color: var(--muted); }
+
+/* Contact */
+.contact a {
+  display: inline-block;
+  margin-right: 18px;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .project { grid-column: span 12; }
+}
