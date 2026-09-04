@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tides of Eternity - Wesley Parrish</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="project.css">
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        Wesley Parrish
+        <span>Gameplay, Simulation, and Systems Programmer</span>
+      </div>
+      <nav>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="WPARRISH.pdf">Resume</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="project-hero">
+      <div class="project-intro">
+        <div class="page-title">
+          <a class="back" href="index.html#projects">&larr; Back to Projects</a>
+
+          <h1>Tides of Eternity</h1>
+          <p class="role">(Role: Gameplay Programmer)</p>
+        </div>
+
+        <div class="summary">
+          <p>
+            Tides of Eternity is an in-development Unity/C# roguelite combat prototype built by a rev-share team.
+            I joined after the project already had an external game design document, then began translating its combat direction into playable prototype systems.
+          </p>
+          <p>
+            My strongest contribution is a runtime status-effect architecture that supports data-configured modifiers, stacking, ticking, expiration, and interactions such as Chill converting into Freeze.
+          </p>
+        </div>
+      </div>
+
+      <aside class="quick-facts card">
+        <div class="facts">
+          <div class="fact">
+            <div class="label">Status</div>
+            <div class="value">In-development combat prototype</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Team</div>
+            <div class="value">Rev-share team; currently sole programmer in the Unity repo</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Tech</div>
+            <div class="value">Unity &bull; C# &bull; ScriptableObjects</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Focus</div>
+            <div class="value">Combat prototype, movement, dash behavior, status effects</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section>
+      <h2>What I contributed</h2>
+      <ul>
+        <li>Implemented isometric movement and dash behavior for a Hades-style combat prototype.</li>
+        <li>Built a bounded damage calculation pipeline based on external GDD limits.</li>
+        <li>Designed a runtime status-effect system with stacks, duration, ticking, expiration, modifier aggregation, and status-specific hooks.</li>
+        <li>Implemented data-configured combat modifiers so movement and damage systems can consume status effects without hardcoded checks for every status.</li>
+        <li>Created status interactions such as Chill converting into Freeze, giving the prototype visible combat behavior while keeping the system flexible.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Code proof</h2>
+      <p>
+        The status system treats statuses as runtime instances instead of simple flags. That lets each status own behavior such as stacks, ticking, expiration, and conversion triggers while movement and damage code query shared modifier results.
+      </p>
+
+      <pre class="code-proof"><code>protected override void OnStackAdd(int stacks)
+{
+    if (Stacks == ((ChillStatusDefinition)Definition).chillToFreezeThreshold)
+    {
+        statusManager.ApplyStatus(StatusType.Freeze, Source);
+    }
+}</code></pre>
+    </section>
+
+    <section>
+      <h2>Evidence target</h2>
+      <div class="visual-plan">
+        <div class="visual-label">Status-effect demo to capture</div>
+        <p>
+          A short clip should show a dummy receiving Chill, slowing down as stacks build, then converting into Freeze for a brief full stop. This is the clearest visual proof because it demonstrates a data-configured combat interaction rather than only showing isolated code.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>What I learned</h2>
+      <p>
+        Tides changed how I think about game design documents. A useful GDD needs subjective direction, but implementation also needs concrete answers: triggers, values, stack rules, timing, ownership, and edge cases.
+      </p>
+      <p>
+        The status architecture was my response to that ambiguity: build a flexible foundation that supports the current prototype while leaving room for the design to evolve.
+      </p>
+    </section>
+  </main>
+</body>
+</html>

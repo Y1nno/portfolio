@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demons &amp; Dining, Darling! - Wesley Parrish</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="project.css">
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        Wesley Parrish
+        <span>Gameplay, Simulation, and Systems Programmer</span>
+      </div>
+      <nav>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="WPARRISH.pdf">Resume</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="project-hero">
+      <div class="project-intro">
+        <div class="page-title">
+          <a class="back" href="index.html#projects">&larr; Back to Projects</a>
+
+          <h1>Demons &amp; Dining, Darling!</h1>
+          <p class="role">(Role: Unity Developer / Gameplay Programmer)</p>
+        </div>
+
+        <div class="summary">
+          <p>
+            Demons &amp; Dining, Darling! is a public cooking and dating-sim prototype built during Indie Game Academy Level 1.
+            I was the Unity Developer / Gameplay Programmer on a mixed-discipline team, implementing the playable systems and integrating teammate-created art, writing, and game design inputs.
+          </p>
+          <p>
+            The prototype shipped publicly on Itch with browser and Windows builds, and the team tied for 3rd place.
+          </p>
+        </div>
+      </div>
+
+      <aside class="quick-facts card">
+        <div class="facts">
+          <div class="fact">
+            <div class="label">Status</div>
+            <div class="value">Public prototype</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Team</div>
+            <div class="value">Mixed-discipline jam team; I was the only programmer</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Program</div>
+            <div class="value">Indie Game Academy Level 1</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Tech</div>
+            <div class="value">Unity &bull; C# &bull; Ink &bull; ScriptableObjects</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Recognition</div>
+            <div class="value">Team tied for 3rd place</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Links</div>
+            <div class="value">
+              <span class="links">
+                <a href="https://aliencowstudios.itch.io/demons-dining-darling-proto/devlog/1452742/jam-postmortem" target="_blank" rel="noopener noreferrer">Itch prototype and postmortem</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section>
+      <h2>What I contributed</h2>
+      <ul>
+        <li>Implemented the Unity gameplay loop for timed customer orders, dish preparation, plating, and serving validation.</li>
+        <li>Built pointer-based ingredient pickup, drop, station interaction, and ticket submission behavior.</li>
+        <li>Created processing and plating station systems that transform ingredients, track ready/ruined states, and produce completed dishes.</li>
+        <li>Integrated Ink dialogue with speaker presentation, choices, dialogue-state input handling, and level callbacks.</li>
+        <li>Integrated teammate-created art, writing, and game design inputs into the working prototype.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Playable loop</h2>
+      <div class="visual-plan">
+        <div class="visual-label">Gameplay clip to capture</div>
+        <p>
+          A short gameplay clip will show the main loop end to end: a customer order appears, the player picks up an ingredient, processes it at a station, plates the result, submits it to the ticket, and receives feedback.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Code proof</h2>
+      <p>
+        This excerpt shows the order system resolving a served dish, checking it against the active ticket, and applying feedback through patience, affection, and chef prompts.
+      </p>
+
+      <pre class="code-proof"><code>public void ResolveOrder(GameObject order)
+{
+    if (order != null &amp;&amp; orders.Contains(order))
+    {
+        RemoveOrder(order);
+        List&lt;Ingredient&gt; platedIngredients = platingStation.GetIngredients();
+        platingStation.ClearIngredients();
+        EvaluateOrder(order, platedIngredients);
+    }
+}
+
+public void EvaluateOrder(GameObject order, List&lt;Ingredient&gt; platedIngredients)
+{
+    if (GetComponent&lt;TutorialSignaler&gt;())
+    {
+        GetComponent&lt;TutorialSignaler&gt;().Signal(LevelSignal.ResolvedFirstOrder);
+    }
+    if (platedIngredients.Count == 1 &amp;&amp; platedIngredients[0].definition == order.GetComponent&lt;Ticket&gt;().order)
+    {
+        PatienceManager.Instance.IncreasePatience(orderApprovalReward);
+    }
+    else
+    {
+        AffectionManager.Instance.DecreaseAffection(orderPenalty);
+        AddPrompt(servedWrongPrompt);
+    }
+}</code></pre>
+    </section>
+
+    <section>
+      <h2>Teamwork and process</h2>
+
+      <div class="split">
+        <div class="main">
+          <p>
+            This was a team jam project, not a solo project. I owned the Unity implementation and integration, while teammates contributed the art, writing, and game design direction/content.
+          </p>
+
+          <p>
+            The public postmortem credits me with recommending the team's 4 L retrospective format, which helped us reflect on scope, process, and communication after shipping the prototype.
+          </p>
+        </div>
+
+        <aside class="side">
+          <div class="pullquote">
+            <p class="quote">
+              The main portfolio value here is delivery: a complete playable loop, a public release, and a team project finished under jam constraints.
+            </p>
+            <p class="byline">- Project focus</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <h2>What I learned</h2>
+      <ul>
+        <li>Short jams reward implementation that connects systems quickly instead of overbuilding isolated architecture.</li>
+        <li>Clear attribution matters on team projects: implementation ownership, design direction, art, and writing should each be described separately.</li>
+        <li>A public prototype can be valuable portfolio evidence when paired with honest scope, visible gameplay, and a specific code proof.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
