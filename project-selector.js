@@ -28,7 +28,8 @@
       systems: "Blueprint logic, enemies, interactive environment, HUD UI, win states.",
       href: "unreal-weekend.html",
       image: "project-backgrounds/03.png",
-      video: "project-backgrounds/03.mp4"
+      video: "project-backgrounds/03.mp4",
+      mobileVideo: "project-backgrounds/03-mobile.mp4"
     },
     {
       title: "Demons & Dining, Darling!",
@@ -78,6 +79,10 @@
         return;
       }
 
+      const videoSrc = narrowScreenQuery.matches && project.mobileVideo
+        ? project.mobileVideo
+        : project.video;
+
       fields.video.muted = true;
       fields.video.defaultMuted = true;
       fields.video.loop = true;
@@ -94,10 +99,10 @@
         fields.video.removeAttribute("poster");
       }
 
-      if (project.video) {
+      if (videoSrc) {
         fields.video.preload = "auto";
-        if (!fields.video.src.endsWith(project.video)) {
-          fields.video.src = project.video;
+        if (!fields.video.src.endsWith(videoSrc)) {
+          fields.video.src = videoSrc;
           fields.video.load();
         }
         fields.video.classList.add("is-visible");
