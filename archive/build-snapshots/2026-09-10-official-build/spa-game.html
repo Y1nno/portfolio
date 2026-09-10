@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Untitled Spa Game - Wesley Parrish</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="project.css">
+  <script src="background-shader.js" defer></script>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        Wesley Parrish
+        <span>Gameplay, Simulation, and Systems Programmer</span>
+      </div>
+      <nav class="nav-menu">
+        <div class="nav-dropdown">
+          <a href="index.html#projects">Projects</a>
+          <div class="nav-dropdown-menu" aria-label="Project pages">
+            <a href="spa-game.html">Untitled Spa Game</a>
+            <a href="tides-of-eternity.html">Tides of Eternity</a>
+            <a href="unreal-weekend.html">Mario World 1-1 in Unreal</a>
+            <a href="demons-dining-darling.html">Demons &amp; Dining, Darling!</a>
+          </div>
+        </div>
+        <a href="index.html#about">About</a>
+        <a href="WPARRISH.pdf">Resume</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="project-hero">
+      <div class="project-intro">
+        <div class="page-title">
+          <a class="back" href="index.html#projects">&larr; Back to Projects</a>
+
+          <h1>Untitled Spa Game</h1>
+          <p class="role">Co-Developer</p>
+        </div>
+
+        <div class="summary">
+          <p>
+            Untitled Spa Game is an in-development Unity/C# first-person spa management sim built by a two-person team.
+            Our goal is to create an experience balanced between calm simulation and light-hearted amusement, where players plan and run a spa while managing time, resources, and the emotions of their guests.
+            I built gameplay and simulation systems that accomplish this goal, spanning from guest AI, resource management, and scheduled events.
+          </p>
+        </div>
+      </div>
+
+      <aside class="quick-facts card">
+        <div class="facts">
+          <div class="fact">
+            <div class="label">Status</div>
+            <div class="value">In development</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Team</div>
+            <div class="value">Two-person project</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Tech</div>
+            <div class="value">Unity &bull; C# &bull;</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Focus</div>
+            <div class="value">Simulation, AI, Scheduling Systems</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="surface-media">
+      <div class="media-frame">
+        <div class="media-copy">
+          <p>
+            TODO: Insert Media.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="credibility-grid">
+      <aside class="testimonial-card card">
+        <div class="visual-label">Team perspective</div>
+        <p>
+          A collaborator testimonial can sit here once available, ideally focused on implementation ownership, communication, and how the systems work supported the shared design.
+        </p>
+      </aside>
+
+      <div class="contribution-card">
+        <h2>Contributions</h2>
+        <ul>
+          <li>Need-driven guest behavior where guests evaluate world activities against internal needs.</li>
+          <li>Data-driven systems for in-game items, and how they are used by guests, containers, and processors.</li>
+          <li>A scheduling system capable of interpreting drag and drop UI elements into timed in-game events.</li>
+          <li>Extension of a teammate's guest AI behavior architecture, adding new features to existing systems.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>System highlights</h2>
+
+      <div class="system-deep-dives">
+        <details class="system-card">
+          <summary>
+            <span class="system-tab-title">Guest AI</span>
+            <span class="system-tab-summary">Guests choose activities by scoring activities against current needs.</span>
+          </summary>
+
+          <div class="system-card-body">
+            <p>
+              Guests evaluate advertised activities by comparing their current needs against the predicted future state that an activity would create. The scoring favors urgent deficits, so a depleted need can matter more than a larger bonus to an already healthy stat.
+            </p>
+
+            <dl class="detail-grid">
+              <div>
+                <dt>Problem</dt>
+                <dd>Scripted guest behavior was predictable once the player understood the pattern.</dd>
+              </div>
+              <div>
+                <dt>Built</dt>
+                <dd>A needs model, advertisement registration, and scoring path for choosing activities.</dd>
+              </div>
+              <div>
+                <dt>Proof</dt>
+                <dd><code>ActionSelector.CalculateScore()</code> compares current fulfillment with predicted fulfillment.</dd>
+              </div>
+              <div>
+                <dt>Interview handle</dt>
+                <dd>Why urgency weighting can make AI choices explainable without making them fixed.</dd>
+              </div>
+            </dl>
+
+            <pre class="code-proof"><code>private float CalculateScore(NeedFufillmentAdvertisement ad)
+{
+    float score = 0f;
+
+    foreach (AdvertisementValue advertisementValue in ad.AdvertisementValues)
+    {
+        GuestNeedData guestNeed = guestNeedsController.GuestNeeds[advertisementValue.NeedType];
+        float guestNeedValue = guestNeed.CurrentValue;
+        float futureFulfillment = Mathf.Clamp(
+            guestNeedValue + advertisementValue.CalculateFulfillmentAmount(),
+            guestNeed.MinValue,
+            guestNeed.MaxValue
+        );
+
+        score += Appraise(guestNeedValue) - Appraise(futureFulfillment);
+    }
+
+    return score;
+}
+
+private float Appraise(float value)
+{
+    float divisor = value;
+    if (divisor &lt;= 0.001f)
+    {
+        divisor = 0.001f;
+    }
+
+    return 1f / (divisor / 10f);
+}</code></pre>
+          </div>
+        </details>
+
+        <details class="system-card">
+          <summary>
+            <span class="system-tab-title">Resource Flow</span>
+            <span class="system-tab-summary">Items move through definitions, filters, containers, reservations, recipes, and processors.</span>
+          </summary>
+
+          <div class="system-card-body">
+            <p>
+              Spa resources are represented as runtime items backed by reusable definitions. Containers and processors use filters and recipes, which lets new resources be configured without writing a bespoke class for every item.
+            </p>
+
+            <dl class="detail-grid">
+              <div>
+                <dt>Problem</dt>
+                <dd>Concrete item scripts would become brittle as more spa content was added.</dd>
+              </div>
+              <div>
+                <dt>Built</dt>
+                <dd>Item definitions, filters, containers, reservations, recipes, and processors.</dd>
+              </div>
+              <div>
+                <dt>Proof</dt>
+                <dd>Dirty robe, hamper, laundry, and clean robe data form a working resource lifecycle.</dd>
+              </div>
+              <div>
+                <dt>Tradeoff</dt>
+                <dd>The system is more abstract, so the authoring data needs clear naming and validation.</dd>
+              </div>
+            </dl>
+          </div>
+        </details>
+
+        <details class="system-card">
+          <summary>
+            <span class="system-tab-title">Scheduling</span>
+            <span class="system-tab-summary">Planning-phase appointment placement becomes timed runtime guest spawning.</span>
+          </summary>
+
+          <div class="system-card-body">
+            <p>
+              Dragged appointment requests are converted into schedule data, queued as timed events, and executed during the Spa Day phase. The player's planning choices become the actual pacing of the simulation.
+            </p>
+
+            <dl class="detail-grid">
+              <div>
+                <dt>Problem</dt>
+                <dd>The planning phase needed to create real runtime consequences, not just setup flavor.</dd>
+              </div>
+              <div>
+                <dt>Built</dt>
+                <dd>Appointment requests, draggable views, placement validation, time ticks, lanes, and guest spawning.</dd>
+              </div>
+              <div>
+                <dt>Proof</dt>
+                <dd>Scheduled appointments create timed events that spawn guests at their selected start time.</dd>
+              </div>
+              <div>
+                <dt>Interview handle</dt>
+                <dd>Translating pointer placement into valid schedule data with overlap rules.</dd>
+              </div>
+            </dl>
+          </div>
+        </details>
+
+        <details class="system-card">
+          <summary>
+            <span class="system-tab-title">Checkout Cleanup</span>
+            <span class="system-tab-summary">Guest departure connects state, item generation, container discovery, and fallback behavior.</span>
+          </summary>
+
+          <div class="system-card-body">
+            <p>
+              Checkout turns guest departure into a resource-management workflow. A robe-wearing guest changes, generates a dirty robe, finds a valid container, stores it when possible, and still exits cleanly if no container is available.
+            </p>
+
+            <dl class="detail-grid">
+              <div>
+                <dt>Problem</dt>
+                <dd>Guest departure had to preserve resource continuity instead of simply deleting state.</dd>
+              </div>
+              <div>
+                <dt>Built</dt>
+                <dd>Changing flow, dirty item creation, runtime hamper discovery, container insertion, and fallback behavior.</dd>
+              </div>
+              <div>
+                <dt>Proof</dt>
+                <dd>The dirty robe path connects guest state, subgoals, item definitions, filters, and containers.</dd>
+              </div>
+              <div>
+                <dt>Tradeoff</dt>
+                <dd>Runtime discovery made the flow more flexible, but required defensive fallback handling.</dd>
+              </div>
+            </dl>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section>
+      <h2>Takeaways</h2>
+      <p>
+        This project reinforced that strong gameplay systems are rarely isolated. Guest needs, world advertisements, item containers, appointment timing, checkout behavior, and reports become more compelling when they can pass meaningful state between each other.
+      </p>
+      <p>
+        The work I am proudest of is the flexible foundation: systems that can support new spa content without requiring a bespoke script for every new item, activity, or guest behavior.
+      </p>
+    </section>
+  </main>
+</body>
+</html>

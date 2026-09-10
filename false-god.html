@@ -14,7 +14,7 @@
     <div class="nav">
       <div class="brand">
         Wesley Parrish
-        <span>Simulation and Systems Programmer</span>
+        <span>Gameplay, Simulation, and Systems Programmer</span>
       </div>
       <nav>
         <a href="index.html#projects">Projects</a>
@@ -89,13 +89,13 @@
     <section>
       <h2>What I contributed</h2>
       <ul>
-        <li>Created and authored the Game Design Document (GDD), converting a vague concept into a production-ready design target.</li>
+        <li>Created and authored the Game Design Document (GDD) based on the designer's input.</li>
         <li>Translated the GDD into a structured technical plan with system requirements and implementation milestones.</li>
         <li>Designed and implemented the high-level architecture, defining core modules and system boundaries.</li>
-        <li>Implemented the overall game loop and combat loop, supporting encounter-driven progression.</li>
+        <li>Implemented the overall game loop and combat loop.</li>
         <li>Built a dedicated testing environment to validate system behavior without requiring full gameplay integration.</li>
-        <li>Recruited and onboarded new team members, assigning programming tasks and reviewing work.</li>
-        <li>Wrote internal documentation to support maintainability and faster onboarding.</li>
+        <li>Recruited and onboarded new team members, managing and organizing work accross disciplines.</li>
+        <li>Wrote internal documentation.</li>
       </ul>
     </section>
 
@@ -111,8 +111,7 @@
       </p>
 
       <p>
-        I managed planning, task tracking, and documentation through Notion databases and a GDD wiki. This dramatically improved onboarding speed,
-        since new team members could quickly understand the project’s systems, priorities, and architecture.
+        I managed planning, task tracking, and documentation through Notion databases and a GDD wiki. This dramatically improved our organization, which payed off when we onboarded new members halfway through the project, helping them quickly understand the project’s design goals, and system architecture.
       </p>
 
       <p>
@@ -129,90 +128,6 @@
     </aside>
   </div>
 </section>
-
-    <!-- TECHNICAL DEEP DIVE -->
-    <section>
-      <h2>Technical deep dive</h2>
-
-      <h3>Architecture</h3>
-      <p>
-        False God is built as a set of independent gameplay modules, each responsible for a single system domain.
-        The goal was to avoid tight coupling between mechanics, while still allowing systems to react to one another cleanly.
-      </p>
-
-      <p>
-        Major systems include managers for dungeon progression, encounters, combat, player state, inventory, XP, currencies,
-        rites/religion, and scoring. These systems communicate through a Subject/Observer pattern so that modules can respond
-        to game state changes without hard dependencies.
-      </p>
-
-      <div class="diagram">
-        Diagram placeholder: Dungeon Manager → Encounter Manager → Combat Manager → Rewards/Progression → back to Dungeon Flow<br/><br/>
-        Observer flow example: Combat resolves → XP manager updates → UI listens and refreshes → scoring system recalculates.
-      </div>
-
-      <p>
-        Configuration is driven through a mix of ScriptableObjects and Unity editor-configurable values, allowing rapid iteration
-        without rewriting core logic.
-      </p>
-
-      <h3>Key constraints and trade-offs</h3>
-      <ul>
-        <li><strong>Low coupling:</strong> Systems were designed to be independent so new mechanics could be added without rewriting existing modules.</li>
-        <li><strong>Rapid iteration:</strong> Editor-driven configuration and ScriptableObjects allow designers to adjust content without programmer involvement.</li>
-        <li><strong>Testability:</strong> The testing scene provides a controlled environment to validate mechanics without relying on full game flow.</li>
-        <li><strong>Production speed:</strong> Early work prioritized architecture and structure over polish, to support long-term scalability.</li>
-      </ul>
-
-      <h3>Performance and metrics</h3>
-      <p>
-        No formal profiling pass has been performed yet, but the codebase was structured with performance and maintainability in mind.
-        Systems are modular and avoid unnecessary dependencies, reducing the risk of costly cascading updates as the game scales.
-      </p>
-
-      <ul>
-        <li>Planned profiling tools: Unity Profiler, deep profiling for hot paths, and memory allocation tracking.</li>
-        <li>Future optimization targets: combat resolution loops, UI update frequency, and data-driven loading.</li>
-      </ul>
-
-      <h3>Challenges → solutions</h3>
-
-      <p>
-        <strong>Problem:</strong> The project required many interconnected systems (combat, progression, dungeon flow, inventory, scoring),
-        and there was a high risk of creating tightly coupled code that would become difficult to extend.
-      </p>
-
-      <p>
-        <strong>Why it mattered:</strong> Roguelikes grow quickly in scope. If systems are interwoven, even small feature additions
-        can cause regressions, slow iteration, and make onboarding new programmers painful.
-      </p>
-
-      <p>
-        <strong>Final approach:</strong> I designed the project around clear system boundaries, using a Subject/Observer pattern
-        so modules could broadcast state changes without knowing who was listening. This allowed mechanics like XP gain, score tracking,
-        and UI updates to react naturally to events without direct coupling.
-      </p>
-
-      <p>
-        <strong>Result:</strong> The architecture supports parallel development, making it easier for multiple programmers to implement
-        systems simultaneously without stepping on each other.
-      </p>
-
-      <p>
-        <strong>Next steps:</strong> As the demo approaches, I plan to formalize event flow rules, add validation tools for ScriptableObject content,
-        and implement lightweight debugging visualizations for combat and dungeon state.
-      </p>
-
-      <h3>Production readiness</h3>
-      <ul>
-        <li><strong>Build steps:</strong> Open the Unity project and run the dedicated test scene to examine core system functionality.</li>
-        <li><strong>Dependency management:</strong> Unity project with Git-based version control.</li>
-        <li><strong>CI notes:</strong> No automated build pipeline yet (prototype stage).</li>
-        <li><strong>Testing strategy:</strong> Testing environment scene used to validate system logic and integration behavior early.</li>
-        <li><strong>Known issues:</strong> Not yet publicly playable; demo build process still in development.</li>
-      </ul>
-    </section>
-
 
     <!-- TIMELINE -->
     <section>
@@ -234,8 +149,6 @@
         <li>Clear system boundaries early on prevent architecture from collapsing as scope increases.</li>
         <li>Observer-driven communication enables complex system interaction without hard dependencies.</li>
         <li>Strong documentation and planning infrastructure drastically reduces onboarding time.</li>
-        <li>Turning vague design into real engineering tasks is a major multiplier for small teams.</li>
-        <li>Testing environments are essential for validating mechanics early before full gameplay integration.</li>
       </ul>
     </section>
   </main>
