@@ -76,6 +76,12 @@
         });
 
         fillCard(card, project);
+
+        button.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center"
+        });
       });
     });
 
