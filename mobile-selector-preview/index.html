@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mobile Selector Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../index.css">
+  <link rel="stylesheet" href="mobile-selector-copies.css">
+  <script src="../background-shader.js" defer></script>
+  <style>
+    .preview-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .preview-link {
+      display: grid;
+      gap: 6px;
+      padding: 18px;
+      border: 1px solid #462b2b;
+      border-radius: var(--radius);
+      background: rgb(7 7 7 / 82%);
+    }
+
+    .preview-link b {
+      color: var(--text);
+      font-size: 1.04rem;
+    }
+
+    .preview-link span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .preview-link:hover,
+    .preview-link:focus-visible {
+      background: linear-gradient(90deg, rgb(143 42 42 / 36%), rgb(255 255 255 / 5%));
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body class="home-page copy-page">
+  <header><div class="nav"><div class="brand">Wesley Parrish</div><nav class="nav-menu"><a href="../index.html#projects">Current Site</a><a href="../WPARRISH.pdf">Resume</a></nav></div></header>
+  <main class="container">
+    <section class="hero">
+      <h1>Mobile selector preview</h1>
+      <p>Three candidate layouts for the project selector on phone screens.</p>
+    </section>
+    <section>
+      <h2>Options</h2>
+      <div class="preview-list">
+        <a class="preview-link" href="01-accordion.html"><b>01 Accordion cards</b><span>Most mobile-native. Each project expands inline with its own details.</span></a>
+        <a class="preview-link" href="02-stacked.html"><b>02 Stacked selector</b><span>Closest to the current design. List first, detail below on mobile.</span></a>
+        <a class="preview-link" href="03-horizontal-tabs.html"><b>03 Horizontal tabs</b><span>Most compact. Side-scrolling project strip above the detail panel.</span></a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
