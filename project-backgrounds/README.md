@@ -1,7 +1,10 @@
 # Project selector backgrounds
 
-Drop official project images or videos in this folder using these filenames:
+Drop project images or videos in this folder using these filenames:
 
+- `01.png` or `01.mp4` for Untitled Spa Game
+- `02.png` or `02.mp4` for Tides of Eternity
 - `03.png` or `03.mp4` for Mario World 1-1 in Unreal
+- `04.png` or `04.mp4` for Demons & Dining, Darling!
 
-The official homepage currently uses `03.mp4` for Mario and `03.png` as its image background. If an image is missing, the existing cinematic background still shows.
+The homepage selector can show all projects while only approved project pages are linked. If an image is missing, the existing cinematic background still shows.

@@ -1,6 +1,26 @@
 (() => {
   const projects = [
     {
+      title: "Untitled Spa Game",
+      summary: "Spa management sim work centered on guests, resources, and player-planned appointment timing.",
+      role: "Co-Developer",
+      tech: "Unity / C#",
+      systems: "NPC AI, Data Driven Interactions, UI Logic.",
+      href: "",
+      image: "project-backgrounds/01.png",
+      video: ""
+    },
+    {
+      title: "Tides of Eternity",
+      summary: "Combat prototype work focused on readable movement and flexible runtime status behavior.",
+      role: "Gameplay Programmer",
+      tech: "Unity / C#",
+      systems: "Player Movement, Data Driven Systems, Combat.",
+      href: "",
+      image: "project-backgrounds/02.png",
+      video: ""
+    },
+    {
       title: "Mario World 1-1 in Unreal",
       summary: "Weekend Unreal prototype reinterpreting classic platformer mechanics in a 3d environment.",
       role: "Solo Developer",
@@ -9,6 +29,16 @@
       href: "unreal-weekend.html",
       image: "project-backgrounds/03.png",
       video: "project-backgrounds/03.mp4"
+    },
+    {
+      title: "Demons & Dining, Darling!",
+      summary: "IGA Level 1 jam submission. Cooking and dating-sim with timed orders, ingredient prep, serving, and Ink dialogue.",
+      role: "Unity Developer",
+      tech: "Unity / C# / Ink",
+      systems: "Cooking gameplay logic, pointer interaction, dialogue.",
+      href: "",
+      image: "project-backgrounds/04.png",
+      video: ""
     },
   ];
 
@@ -52,8 +82,15 @@
         fields.role.textContent = project.role;
         fields.tech.textContent = project.tech;
         fields.systems.textContent = project.systems;
-        fields.link.href = project.href;
-        fields.link.textContent = `See more of ${project.title} \u2192`;
+        if (project.href) {
+          fields.link.href = project.href;
+          fields.link.textContent = `See more of ${project.title} \u2192`;
+          fields.link.hidden = false;
+        } else {
+          fields.link.removeAttribute("href");
+          fields.link.textContent = "Project page coming later";
+          fields.link.hidden = true;
+        }
         selector.style.setProperty("--project-bg", `url("${project.image}")`);
         selector.classList.toggle("has-video", Boolean(project.video));
 
