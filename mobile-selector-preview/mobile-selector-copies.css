@@ -207,12 +207,22 @@
 }
 
 .tab-strip .project-button {
-  flex: 0 0 min(78vw, 270px);
-  min-height: 78px;
-  padding: 12px 14px;
+  flex: 0 0 min(58vw, 210px);
+  min-height: 68px;
+  padding: 10px 12px;
   border: 1px solid #282020;
   border-radius: 6px;
   background: rgb(255 255 255 / 3%);
+}
+
+.tab-strip .project-button b {
+  font-size: 0.94rem;
+  line-height: 1.22;
+}
+
+.tab-strip .project-button small {
+  margin-top: 2px;
+  font-size: 0.78rem;
 }
 
 .tab-strip .project-button.is-active {
