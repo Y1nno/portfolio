@@ -7,18 +7,6 @@
   position: relative;
 }
 
-.hero::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: -24px;
-  width: min(280px, 60vw);
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent-strong), var(--accent-soft), transparent);
-  background-size: 200% 100%;
-  animation: accent-shift 8s linear infinite;
-}
-
 .hero h1 {
   font-size: clamp(2.4rem, 4vw, 3.2rem);
   line-height: 1.05;
@@ -46,61 +34,6 @@ section h2 {
   color: var(--muted);
 }
 
-/* Projects */
-.projects {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 20px;
-}
-
-.project {
-  grid-column: span 6;
-  padding: 20px;
-  background: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--surface-2) 88%, var(--accent) 12%),
-    var(--surface)
-  );
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  transition:
-    border-color 180ms ease,
-    transform 180ms ease,
-    box-shadow 180ms ease,
-    background-position 240ms ease;
-  background-size: 140% 140%;
-}
-
-.project:hover {
-  border-color: var(--accent-soft);
-  transform: translateY(-3px);
-  background-position: 100% 0;
-  box-shadow: 0 16px 36px rgb(0 0 0 / 38%), 0 0 0 1px rgb(85 0 0 / 35%), 0 0 26px rgb(85 0 0 / 20%);
-}
-
-.project h3 {
-  margin: 0 0 8px;
-  font-size: 1.1rem;
-}
-
-.project .meta {
-  font-size: 0.85rem;
-  color: var(--faint);
-  margin-bottom: 12px;
-}
-
-.project p {
-  font-size: 0.95rem;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-
-.project a {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--accent-strong);
-}
-
 /* About */
 .about { max-width: 720px; }
 .about p { margin-bottom: 16px; color: var(--muted); }
@@ -115,18 +48,4 @@ section h2 {
 
 .contact a:hover {
   color: var(--accent-strong);
-}
-
-@keyframes accent-shift {
-  from {
-    background-position: 0% 50%;
-  }
-  to {
-    background-position: 200% 50%;
-  }
-}
-
-/* Responsive */
-@media (max-width: 800px) {
-  .project { grid-column: span 12; }
 }

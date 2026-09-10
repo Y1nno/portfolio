@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tides of Eternity - Wesley Parrish</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="project.css">
+  <script src="background-shader.js" defer></script>
 </head>
 
 <body>
@@ -16,8 +20,16 @@
         Wesley Parrish
         <span>Gameplay, Simulation, and Systems Programmer</span>
       </div>
-      <nav>
-        <a href="index.html#projects">Projects</a>
+      <nav class="nav-menu">
+        <div class="nav-dropdown">
+          <a href="index.html#projects">Projects</a>
+          <div class="nav-dropdown-menu" aria-label="Project pages">
+            <a href="spa-game.html">Untitled Spa Game</a>
+            <a href="tides-of-eternity.html">Tides of Eternity</a>
+            <a href="unreal-weekend.html">Mario World 1-1 in Unreal</a>
+            <a href="demons-dining-darling.html">Demons &amp; Dining, Darling!</a>
+          </div>
+        </div>
         <a href="index.html#about">About</a>
         <a href="WPARRISH.pdf">Resume</a>
         <a href="index.html#contact">Contact</a>
@@ -80,6 +92,16 @@
         <li>Implemented data-configured combat modifiers so movement and damage systems can consume status effects without hardcoded checks for every status.</li>
         <li>Created status interactions such as Chill converting into Freeze, giving the prototype visible combat behavior while keeping the system flexible.</li>
       </ul>
+    </section>
+
+    <section class="testimonial-card card">
+      <div class="visual-label">Team perspective</div>
+      <p>
+        &ldquo;Wesley has been one of the most reliable technical contributors on Tides of Eternity. He works extremely fast without sacrificing quality, and one thing I&rsquo;ve consistently noticed is that he doesn&rsquo;t sit on a task for ages, he gets it done, polishes it, and comes back with something solid. If you need someone who can move quickly and still deliver quality work, Wesley is definitely someone I&rsquo;d trust on a project.&rdquo;
+      </p>
+      <p class="testimonial-attribution">
+        Kayra Bakirci, Founder of Olympos Games
+      </p>
     </section>
 
     <section>

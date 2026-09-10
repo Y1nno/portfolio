@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Untitled Spa Game - Wesley Parrish</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="project.css">
+  <script src="background-shader.js" defer></script>
 </head>
 
 <body>
@@ -16,8 +20,16 @@
         Wesley Parrish
         <span>Gameplay, Simulation, and Systems Programmer</span>
       </div>
-      <nav>
-        <a href="index.html#projects">Projects</a>
+      <nav class="nav-menu">
+        <div class="nav-dropdown">
+          <a href="index.html#projects">Projects</a>
+          <div class="nav-dropdown-menu" aria-label="Project pages">
+            <a href="spa-game.html">Untitled Spa Game</a>
+            <a href="tides-of-eternity.html">Tides of Eternity</a>
+            <a href="unreal-weekend.html">Mario World 1-1 in Unreal</a>
+            <a href="demons-dining-darling.html">Demons &amp; Dining, Darling!</a>
+          </div>
+        </div>
         <a href="index.html#about">About</a>
         <a href="WPARRISH.pdf">Resume</a>
         <a href="index.html#contact">Contact</a>
@@ -69,14 +81,33 @@
       </aside>
     </section>
 
-    <section>
-      <h2>What I contributed</h2>
-      <ul>
-        <li>Need-driven guest behavior where guests evaluate world activities against internal needs.</li>
-        <li>Data-driven systems for in-game items, and how they are used by guests, containers, and processors.</li>
-        <li>A scheduling system capable of interpreting drag and drop UI elements into timed in-game events.</li>
-        <li>Extension of a teammate's guest AI behavior architecture, adding new features to existing systems.</li>
-      </ul>
+    <section class="surface-media">
+      <div class="media-frame">
+        <div class="media-copy">
+          <p>
+            TODO: Insert Media.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="credibility-grid">
+      <aside class="testimonial-card card">
+        <div class="visual-label">Team perspective</div>
+        <p>
+          A collaborator testimonial can sit here once available, ideally focused on implementation ownership, communication, and how the systems work supported the shared design.
+        </p>
+      </aside>
+
+      <div class="contribution-card">
+        <h2>Contributions</h2>
+        <ul>
+          <li>Need-driven guest behavior where guests evaluate world activities against internal needs.</li>
+          <li>Data-driven systems for in-game items, and how they are used by guests, containers, and processors.</li>
+          <li>A scheduling system capable of interpreting drag and drop UI elements into timed in-game events.</li>
+          <li>Extension of a teammate's guest AI behavior architecture, adding new features to existing systems.</li>
+        </ul>
+      </div>
     </section>
 
     <section>
@@ -245,7 +276,7 @@ private float Appraise(float value)
     </section>
 
     <section>
-      <h2>What I learned</h2>
+      <h2>Takeaways</h2>
       <p>
         This project reinforced that strong gameplay systems are rarely isolated. Guest needs, world advertisements, item containers, appointment timing, checkout behavior, and reports become more compelling when they can pass meaningful state between each other.
       </p>
