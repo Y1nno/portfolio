@@ -1,10 +1,12 @@
-# Portfolio Repository Layout
+# Wesley Parrish Portfolio
 
-This repo is split into working areas so the public portfolio can stay separate from experiments and older drafts.
+The root of this repository now contains the official public portfolio build for GitHub Pages.
 
-- `official-build/` contains the version intended for online display.
-- `testing-area/` contains experiments, draft pages, visual tests, and unfinished ideas.
-- `archive/` contains older material, retired drafts, and dated snapshots of official builds.
-- `Portfolio - Obsidian Notes/` contains planning, research, copy, and review notes.
+Current public contents:
 
-The current root-level files are preserved as the active working copy until publishing is pointed at `official-build/`.
+- Homepage and the Mario World 1-1 in Unreal project page
+- Shared CSS and JavaScript
+- Public resume PDF
+- Project background assets
+
+Use the root for publish-ready changes only. Rough drafts, retired material, notes, old snapshots, and experiments live in `testing-area/`.

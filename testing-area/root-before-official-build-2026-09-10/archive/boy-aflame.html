@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Boy Aflame Who Couldn't Fly - Wesley Parrish</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../project.css">
+  <script src="../background-shader.js" defer></script>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        Wesley Parrish
+        <span>Gameplay, Simulation, and Systems Programmer</span>
+      </div>
+      <nav>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#about">About</a>
+        <a href="../WPARRISH.pdf">Resume</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="project-hero">
+      <div class="project-intro">
+        <div class="page-title">
+          <a class="back" href="../index.html#projects">&larr; Back to Projects</a>
+
+          <h1>The Boy Aflame Who Couldn't Fly</h1>
+          <p class="role">(Role: Gameplay Programmer)</p>
+        </div>
+
+        <div class="summary">
+          <p>
+            The Boy Aflame Who Couldn't Fly is a narrative exploration game where the player records family events on a camcorder and replays footage across the years in Cuba.
+            From a technical perspective, it focuses on a modular "recording + playback" framework where each object defines its own state serialization, replayed at a fixed timestep with interpolation for smooth playback.
+          </p>
+        </div>
+      </div>
+
+      <aside class="quick-facts card">
+        <div class="facts">
+          <div class="fact">
+            <div class="label">Status</div>
+            <div class="value">Prototype (working toward first playable)</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Team</div>
+            <div class="value">6 (My role: Gameplay Programmer)</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Duration</div>
+            <div class="value">Feb 2026 - Present (2 weeks)</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Tech</div>
+            <div class="value">Unity &bull; C#</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Platform</div>
+            <div class="value">PC</div>
+          </div>
+
+          <div class="fact">
+            <div class="label">Links</div>
+            <div class="value">
+              <span class="links">No public links yet</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section>
+      <h2>What I contributed</h2>
+      <ul>
+        <li>Implemented the player controller and camera system, including both first-person and third-person perspectives with runtime swapping and camera smoothing.</li>
+        <li>Integrated Unity's New Input System package to support clean action mapping and consistent input handling across gameplay and UI.</li>
+        <li>Built the recording/playback "video" system, centered around a Replay Manager that captures object state at a fixed timestep and replays it with interpolation.</li>
+        <li>Designed the replay framework so each recordable object defines what attributes it needs, such as position, rotation, and velocity by default, reducing redundant recording and keeping captures lightweight.</li>
+        <li>Created UI systems for recording and playback, including the recording overlay and playback tooling.</li>
+        <li>Imported and integrated animations and 3D models into the project pipeline.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Teamwork and process</h2>
+
+      <div class="split">
+        <div class="main">
+          <p>
+            I worked on a studio team that collaborated primarily asynchronously through Discord. I focused on building core gameplay systems early, especially the player controller and the recording/playback framework that the project's central mechanic depends on.
+          </p>
+
+          <p>
+            Early on, I authored a game mechanics document for the whole team to align on how recording, playback, and player interaction should behave.
+            I tracked my work and priorities in a personal Notion board to stay organized and keep momentum during the prototype sprint.
+          </p>
+        </div>
+
+        <aside class="side">
+          <div class="pullquote">
+            <p class="quote">
+              The core "video" mechanic required systems thinking: define state ownership per object, capture deterministically, then replay smoothly through interpolation.
+            </p>
+            <p class="byline">- Project focus</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <h2>Timeline</h2>
+      <ul>
+        <li><strong>2/3:</strong> Joined the project and began implementing core gameplay foundations.</li>
+        <li><strong>2/6:</strong> Authored a game mechanics document to align the team on systems and intended player experience.</li>
+        <li><strong>2/8:</strong> Completed the player controller and dual-camera system (first/third person swap + smoothing).</li>
+        <li><strong>2/11:</strong> Implemented working recording + playback, capturing object state at a fixed timestep and replaying with interpolation.</li>
+        <li><strong>Next milestone:</strong> Deliver a first playable build for the Latinx in Gaming grant award.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What I learned</h2>
+      <ul>
+        <li>Replay systems get dramatically simpler when ownership is pushed to the objects being recorded, with each object defining what state matters.</li>
+        <li>Fixed-timestep capture paired with interpolation is a strong baseline for smooth playback without over-sampling state.</li>
+        <li>For short prototype sprints, producing a clear mechanics document early helps keep implementation decisions consistent across the team.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A self-directed Unreal Blueprint platformer built during a weekend workshop and released for Windows." />
+  <title>Mario World 1-1 in Unreal - Wesley Parrish</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="project.css">
+  <script src="background-shader.js" defer></script>
+  <style>
+    .unreal-page .page-title h1 { font-size: 2.2rem; letter-spacing: 0; overflow-wrap: anywhere; }
+    .unreal-page .project-intro { min-width: 0; }
+    .unreal-video { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+    @media (max-width: 700px) { .unreal-page .page-title h1 { font-size: 1.8rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">Wesley Parrish<span>Gameplay, Simulation, and Systems Programmer</span></div>
+      <nav class="nav-menu">
+        <div class="nav-dropdown">
+          <a href="index.html#projects">Projects</a>
+          <div class="nav-dropdown-menu" aria-label="Project pages">
+            <a href="unreal-weekend.html">Mario World 1-1 in Unreal</a>
+          </div>
+        </div>
+        <a href="index.html#about">About</a>
+        <a href="WPARRISH.pdf">Resume</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container unreal-page">
+    <section class="project-hero">
+      <div class="project-intro">
+        <div class="page-title">
+          <a class="back" href="index.html#projects">&larr; Back to Projects</a>
+          <h1>Mario World 1-1 in Unreal</h1>
+          <p class="role">Gameplay implementation</p>
+        </div>
+        <div class="summary">
+          <p>I built a third-person platformer inspired by Super Mario Bros. World 1-1 during Indie Game Academy's Unreal workshop. Within that weekend, I learned a new engine and a visual approach to programming while building a complete playable experience, from the main menu through platforming, death and restart, and a finish. I published the packaged Windows build the day after the workshop weekend ended.</p>
+          <p>Instruction covered creating game objects, collisions, and basic Blueprint construction. Beyond those fundamentals, the project was largely self-directed: I implemented the gameplay, integrated imported assets, and worked through packaging.</p>
+        </div>
+      </div>
+      <aside aria-label="Project facts">
+        <dl class="unreal-facts">
+          <div><dt>Status</dt><dd><a href="https://welsey-p.itch.io/i-learned-how-to-use-unreal-this-weekend" target="_blank" rel="noopener noreferrer">Released on itch.io &rarr;</a></dd></div>
+          <div><dt>Team</dt><dd>Solo developer</dd></div>
+          <div><dt>Tech</dt><dd>Unreal Engine 5.7 &bull; Blueprints</dd></div>
+          <div><dt>Focus</dt><dd>Actor Blueprints, platforming, gameplay flow</dd></div>
+        </dl>
+      </aside>
+    </section>
+    <section class="surface-media" aria-label="Gameplay demonstration">
+      <iframe class="unreal-video" src="https://www.youtube.com/embed/UVajCqvrDI4" title="Gameplay demonstration of Mario World 1-1 in Unreal" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </section>
+    <section>
+      <h2>What I built</h2>
+      <ul>
+        <li>Assembled a third-person course with pipes, blocks, gaps, stairs, and a flagpole finish.</li>
+        <li>Built actor Blueprints for the player, Goombas, coin/question blocks, and flagpole, and integrated an imported character model and animations into the third-person setup.</li>
+        <li>Implemented enemy behavior, question-block and coin interactions, and HUD feedback.</li>
+        <li>Connected the main menu, death and restart behavior, and flagpole-triggered win flow.</li>
+        <li>Integrated models, materials, UI assets, and audio, then packaged and shared the Windows release.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>What I took from it</h2>
+      <p>Working with Blueprints came with a trade-off. The visual connections made gameplay logic feel more approachable than written code, but they changed how I approached a behavior. In C#, I often started with the variables and data I had, then worked forward through transformations toward the result. In Blueprints, I found myself starting with the action I wanted and working backward through its inputs to the source data.</p>
+      <p>That took some adjustment, especially while I was still learning which actions Unreal made available. I relied on familiar fundamentals to find a starting point. For controlled actor movement, for example, I knew I could use a value that changed over time to apply small changes to the actor's position over a set duration. That gave me a concrete behavior to work toward while I learned how to express it in Blueprints.</p>
+      <p>I'm proud of how quickly I adapted to both a new engine and a different way of constructing logic, and that I brought the pieces together into a complete experience within the weekend. The tight deadline gave the work a game-jam rhythm: learning, making scope decisions, and getting the full gameplay loop working together. Seeing my game development fundamentals carry over from other projects and learning experiences helped me finish while the tools were still unfamiliar.</p>
+      <p>Finishing this project gave me confidence to take on more complex Unreal projects. I look forward to opportunities to build on that foundation and expand my Unreal skills.</p>
+    </section>
+  </main>
+</body>
+</html>

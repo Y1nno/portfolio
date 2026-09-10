@@ -410,14 +410,10 @@ li {
 /* Split layout + pullquote */
 .split {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+  grid-template-columns: 2fr 1fr;
   gap: 22px;
   align-items: center;
   margin-top: 18px;
-}
-
-.teamwork .side {
-  align-self: center;
 }
 
 .pullquote {

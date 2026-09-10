@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wesley Parrish</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="index-structural-copies.css">
+  <link rel="stylesheet" href="index-readability-variations.css">
+  <script src="background-shader.js" defer></script>
+  <script src="project-selector.js" defer></script>
+</head>
+<body class="home-page readability-single treatment-integrated">
+  <header><div class="nav"><div class="brand">Wesley Parrish</div><nav class="nav-menu"><div class="nav-dropdown"><a href="#projects">Projects</a><div class="nav-dropdown-menu" aria-label="Project pages"><a href="spa-game.html">Untitled Spa Game</a><a href="tides-of-eternity.html">Tides of Eternity</a><a href="unreal-weekend.html">Mario World 1-1 in Unreal</a><a href="demons-dining-darling.html">Demons &amp; Dining, Darling!</a></div></div><a href="#about">About</a><a href="WPARRISH.pdf">Resume</a><a href="#contact">Contact</a></nav></div></header>
+  <main class="container">
+    <section class="hero"><h1>Great games run on great code.</h1><p>I build clean, extendable, and efficient code that is easy to mesh with any codebase.</p></section>
+    <section id="projects"><h2>Projects</h2><div class="selector-frame cinematic-selector" data-project-selector>
+      <div class="selector-panel">
+        <button class="selector-item is-active" type="button" data-project-index="0"><span>01</span><b>Untitled Spa Game</b><small>In development co-op whimsical spa sim</small></button>
+        <button class="selector-item" type="button" data-project-index="1"><span>02</span><b>Tides of Eternity</b><small>In development isometric action roguelike</small></button>
+        <button class="selector-item" type="button" data-project-index="2"><span>03</span><b>Mario World 1-1 in Unreal</b><small>Blueprint platforming prototype</small></button>
+        <button class="selector-item" type="button" data-project-index="3"><span>04</span><b>Demons &amp; Dining, Darling!</b><small>2D cooking and dialogue prototype</small></button>
+      </div>
+      <article class="selector-display" aria-live="polite"><video class="selector-video" data-project-video muted loop playsinline preload="metadata" aria-hidden="true"></video><h3 data-project-title>Untitled Spa Game</h3><div class="summary-field"><p data-project-summary>Spa management sim work centered on guests, resources, and player-planned appointment timing.</p><dl class="selector-details"><div><dt>Role</dt><dd data-project-role>Co-Developer</dd></div><div><dt>Tech</dt><dd data-project-tech>Unity / C# / Simulation AI</dd></div><div><dt>Systems</dt><dd data-project-systems>Guest AI, resource flow, timed scheduling.</dd></div></dl><a class="selector-link" href="spa-game.html" data-project-link>See more of Untitled Spa Game &rarr;</a></div></article>
+    </div></section>
+    <section id="about" class="about"><h2>About</h2><p>I'm a gameplay-focused programmer with strong Unity experience. I've been making games as a hobby for 3 years, and over the past year, I have gained the confidence to channel my passion for making games into a full-time career. My favorite projects are the ones where I can develop elegant solutions to interesting programming design problems and help turn game concepts into programming architecture.</p></section>
+    <section id="contact" class="contact"><h2>Contact</h2><a href="mailto:wesley@ssparrish.com">wesley@ssparrish.com</a><a href="https://discord.com/users/302322048095617035">Discord</a><a href="https://github.com/Y1nno">GitHub</a><a href="https://welsey-p.itch.io">Itch.io</a><a href="WPARRISH.pdf">Resume</a></section><footer></footer>
+  </main>
+</body>
+</html>
