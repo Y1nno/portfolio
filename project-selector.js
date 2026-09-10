@@ -73,7 +73,47 @@
       });
     }
 
-    function setProject(index) {
+    function updateVideo(project, shouldPlayNow = false) {
+      if (!fields.video) {
+        return;
+      }
+
+      fields.video.muted = true;
+      fields.video.defaultMuted = true;
+      fields.video.loop = true;
+      fields.video.playsInline = true;
+      fields.video.autoplay = true;
+      fields.video.setAttribute("autoplay", "");
+      fields.video.setAttribute("muted", "");
+      fields.video.setAttribute("playsinline", "");
+      fields.video.setAttribute("webkit-playsinline", "");
+
+      if (project.image) {
+        fields.video.poster = project.image;
+      } else {
+        fields.video.removeAttribute("poster");
+      }
+
+      if (project.video) {
+        fields.video.preload = "auto";
+        if (!fields.video.src.endsWith(project.video)) {
+          fields.video.src = project.video;
+          fields.video.load();
+        }
+        fields.video.classList.add("is-visible");
+        if (shouldPlayNow) {
+          fields.video.play().catch(() => {});
+        }
+      } else {
+        fields.video.pause();
+        fields.video.preload = "metadata";
+        fields.video.removeAttribute("src");
+        fields.video.load();
+        fields.video.classList.remove("is-visible");
+      }
+    }
+
+    function setProject(index, options = {}) {
       const project = projects[index];
       if (!project) {
         return;
@@ -88,6 +128,9 @@
       });
 
       selector.classList.add("is-switching");
+      selector.style.setProperty("--project-bg", `url("${project.image}")`);
+      selector.classList.toggle("has-video", Boolean(project.video));
+      updateVideo(project, Boolean(options.playVideoNow));
 
       switchTimeoutId = window.setTimeout(() => {
         fields.title.textContent = project.title;
@@ -104,23 +147,7 @@
           fields.link.textContent = "Project page coming later";
           fields.link.hidden = true;
         }
-        selector.style.setProperty("--project-bg", `url("${project.image}")`);
-        selector.classList.toggle("has-video", Boolean(project.video));
-
-        if (fields.video) {
-          if (project.video) {
-            if (!fields.video.src.endsWith(project.video)) {
-              fields.video.src = project.video;
-            }
-            fields.video.classList.add("is-visible");
-            fields.video.play().catch(() => {});
-          } else {
-            fields.video.pause();
-            fields.video.removeAttribute("src");
-            fields.video.load();
-            fields.video.classList.remove("is-visible");
-          }
-        }
+        updateVideo(project, true);
 
         selector.classList.remove("is-switching");
       }, 140);
@@ -157,7 +184,7 @@
         pauseThenResume();
       });
       item.addEventListener("click", () => {
-        setProject(index);
+        setProject(index, { playVideoNow: true });
         centerSelectedItem(item);
         pauseThenResume();
       });
