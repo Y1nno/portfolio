@@ -59,6 +59,19 @@
     let resumeTimeoutId = 0;
     let switchTimeoutId = 0;
     let isPointerInside = false;
+    const narrowScreenQuery = window.matchMedia("(max-width: 700px)");
+
+    function centerSelectedItem(item) {
+      if (!narrowScreenQuery.matches) {
+        return;
+      }
+
+      item.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center"
+      });
+    }
 
     function setProject(index) {
       const project = projects[index];
@@ -145,6 +158,7 @@
       });
       item.addEventListener("click", () => {
         setProject(index);
+        centerSelectedItem(item);
         pauseThenResume();
       });
     });

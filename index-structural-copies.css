@@ -648,4 +648,55 @@
   .home-page .selector-details {
     grid-template-columns: 1fr;
   }
+
+  .home-page .selector-frame {
+    --mobile-tab-width: min(42vw, 152px);
+    min-height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .home-page .selector-panel {
+    display: flex;
+    grid-template-rows: none;
+    gap: 6px;
+    padding: 8px calc((100% - var(--mobile-tab-width)) / 2);
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid #2b2222;
+    scrollbar-width: thin;
+    scroll-padding-inline: 50%;
+  }
+
+  .home-page .selector-item {
+    flex: 0 0 var(--mobile-tab-width);
+    min-height: 58px;
+    padding: 8px 10px;
+    border: 1px solid #282020;
+    border-radius: 6px;
+    align-content: start;
+    background: rgb(255 255 255 / 3%);
+  }
+
+  .home-page .selector-item:hover,
+  .home-page .selector-item:focus-visible,
+  .home-page .selector-item.is-active {
+    padding-left: 10px;
+    border-color: rgb(194 90 90 / 70%);
+    box-shadow: inset 0 -3px 0 var(--accent-strong);
+  }
+
+  .home-page .selector-item b {
+    font-size: 0.84rem;
+    line-height: 1.22;
+  }
+
+  .home-page .selector-item small {
+    margin-top: 2px;
+    font-size: 0.7rem;
+    line-height: 1.25;
+  }
+
+  .home-page .selector-display {
+    min-height: 330px;
+  }
 }
