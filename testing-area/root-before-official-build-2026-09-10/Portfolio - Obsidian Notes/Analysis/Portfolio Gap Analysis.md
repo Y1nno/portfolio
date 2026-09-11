@@ -51,3 +51,18 @@ Most important remaining gaps after the first site implementation:
 ## Future Project Feedback
 
 If target roles require competencies not supported by existing projects, record possible future project ideas here instead of pretending the gap is solved.
+
+## New Material - 2026-09-11 Job Posting Learnings
+
+See [[Job Posting Learnings - 2026-09-11]].
+
+The first posting review adds or reinforces these gaps:
+
+| Gap | Type | Why It Matters | Source | Next Step | Status |
+| --- | --- | --- | --- | --- | --- |
+| Debugging and iteration proof | Evidence gap | Junior/intern-shaped postings still ask for debugging, troubleshooting, playtesting feedback, and problem solving. | First 8 tracked job postings, 2026-09-11 | Add concrete debugging/iteration notes to at least one case study and capture before/after evidence where possible. | new |
+| Git/source-control process proof | Evidence gap | Git/version control appears repeatedly and helps show professional workflow. | First 8 tracked job postings, 2026-09-11 | Add concise process notes or repo/code evidence where public-safe. | new |
+| UI/gameplay implementation proof | Competency gap | Entry-level Unity postings often combine gameplay and UI implementation. | First 8 tracked job postings, 2026-09-11 | Surface UI/gameplay implementation in Demons, Spa planning UI, or another focused piece. | new |
+| Portfolio/code repository visibility | Asset gap | Several postings request portfolio links, code repositories, completed games, or playable builds. | First 8 tracked job postings, 2026-09-11 | Prioritize playable builds, clips, code excerpts, and clear project pages over broad prose. | new |
+| Optimization/profiling evidence | Competency gap | Advanced postings repeatedly mention profiling, CPU/memory performance, allocation-free code, or data-oriented programming. | First 8 tracked job postings, 2026-09-11 | Treat as later-layer evidence; add small, honest profiling/stress-test notes if a project naturally supports it. | new |
+

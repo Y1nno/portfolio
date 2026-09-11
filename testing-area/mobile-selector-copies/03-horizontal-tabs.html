@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mobile Selector Copy 03 - Horizontal Tabs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../index.css">
+  <link rel="stylesheet" href="mobile-selector-copies.css">
+  <script src="../../background-shader.js" defer></script>
+  <script src="mobile-selector-copies.js" defer></script>
+</head>
+<body class="home-page copy-page">
+  <header><div class="nav"><div class="brand">Wesley Parrish</div><nav class="nav-menu"><div class="nav-dropdown"><a href="#projects">Projects</a><div class="nav-dropdown-menu" aria-label="Project pages"><a href="../../unreal-weekend.html">Mario World 1-1 in Unreal</a></div></div><a href="#about">About</a><a href="../../WPARRISH.pdf">Resume</a><a href="#contact">Contact</a></nav></div></header>
+  <main class="container">
+    <section class="hero"><h1>Copy 03: Horizontal project tabs</h1><p>The most compact option. The project list becomes a sideways strip, and the detail panel keeps the cinematic look.</p></section>
+    <section id="projects">
+      <h2>Projects</h2>
+      <p class="copy-note">Recommended when vertical space matters most and we are comfortable with horizontal scrolling on phones.</p>
+      <div class="project-variant project-card tabs-picker" data-switcher-copy>
+        <div class="tab-strip" aria-label="Projects">
+          <button class="project-button is-active" type="button" data-project-index="0" aria-pressed="true"><b>Untitled Spa Game</b><small>Co-op whimsical spa sim</small></button>
+          <button class="project-button" type="button" data-project-index="1" aria-pressed="false"><b>Tides of Eternity</b><small>Isometric action roguelike</small></button>
+          <button class="project-button" type="button" data-project-index="2" aria-pressed="false"><b>Mario World 1-1</b><small>Unreal platforming prototype</small></button>
+          <button class="project-button" type="button" data-project-index="3" aria-pressed="false"><b>Demons &amp; Dining</b><small>Cooking and dialogue prototype</small></button>
+        </div>
+        <article data-project-card>
+          <div class="project-visual"><h3 data-project-title></h3><p data-project-summary></p><a class="project-action" data-project-link hidden></a></div>
+          <dl class="project-meta"><div><dt>Role</dt><dd data-project-role></dd></div><div><dt>Tech</dt><dd data-project-tech></dd></div><div><dt>Systems</dt><dd data-project-systems></dd></div></dl>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -106,3 +106,16 @@ Do not lead with:
 - Phase system alone.
 - Audio/FMOD integration, attributed to Aidan.
 - Broad claims about the entire guest state architecture.
+
+## New Material - 2026-09-11 Job Posting Learnings
+
+See [[Job Posting Learnings - 2026-09-11]].
+
+The first 8 tracked postings support the current project order:
+
+- Spa Game / Alien Spa remains the strongest flagship because it can show Unity/C# gameplay systems, simulation, UI/planning-to-runtime flow, collaboration, and design-to-code translation.
+- Tides of Eternity remains a strong supporting case study if public-use permission is resolved, especially for external-GDD-to-code translation and combat/status-system architecture.
+- Demons and Dining Darling remains valuable as public proof of completion, team integration, and a finished playable loop.
+
+Future projects should not chase every senior-job keyword. Prefer small, finishable, systems-forward projects that add missing proof: debugging, UI implementation, source-control/process, optimization/profiling, or a distinct gameplay system.
+

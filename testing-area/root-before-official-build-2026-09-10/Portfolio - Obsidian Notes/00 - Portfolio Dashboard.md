@@ -116,3 +116,10 @@ Known project names appearing in existing material:
 2. Request/record Tides of Eternity public-use permission boundaries before treating its page as publishable.
 3. Capture Tides Chill-to-Freeze demo GIF and Demons cooking/order loop GIF.
 4. Reassess Boy Aflame, False God, Echoes, RootAccess, and Tabletop Generators only if they fill a remaining gap better than the featured trio.
+
+## New Material - 2026-09-11 Job Posting Learnings
+
+- [[Job Posting Learnings - 2026-09-11]] adds early market signals from the first 8 tracked job postings.
+- The strongest new planning input: portfolio pieces should prove the ability to turn design requirements into working, maintainable gameplay systems with visible evidence, debugging/iteration notes, and code/process proof.
+- Use this new note when revising project pages, choosing future projects, and deciding which gaps matter next.
+

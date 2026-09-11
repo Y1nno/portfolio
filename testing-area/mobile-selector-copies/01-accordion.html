@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mobile Selector Copy 01 - Accordion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../index.css">
+  <link rel="stylesheet" href="mobile-selector-copies.css">
+  <script src="../../background-shader.js" defer></script>
+  <script src="mobile-selector-copies.js" defer></script>
+</head>
+<body class="home-page copy-page">
+  <header><div class="nav"><div class="brand">Wesley Parrish</div><nav class="nav-menu"><div class="nav-dropdown"><a href="#projects">Projects</a><div class="nav-dropdown-menu" aria-label="Project pages"><a href="../../unreal-weekend.html">Mario World 1-1 in Unreal</a></div></div><a href="#about">About</a><a href="../../WPARRISH.pdf">Resume</a><a href="#contact">Contact</a></nav></div></header>
+  <main class="container">
+    <section class="hero"><h1>Copy 01: Accordion cards</h1><p>The most mobile-native version. Each project owns its details inline, so there is no cramped second column.</p></section>
+    <section id="projects">
+      <h2>Projects</h2>
+      <p class="copy-note">Recommended when the phone view should feel intentional and tap-friendly, even if it takes a little more vertical space.</p>
+      <div class="project-variant project-card accordion-list" data-accordion-copy>
+        <div class="accordion-item is-open" data-accordion-item>
+          <button class="project-button accordion-trigger is-active" type="button" data-project-index="0" aria-expanded="true"><span><b>Untitled Spa Game</b><small>In development co-op whimsical spa sim</small></span></button>
+          <div class="accordion-panel"><article class="project-card" data-project-card><div class="project-visual"><h3 data-project-title></h3><p data-project-summary></p><a class="project-action" data-project-link hidden></a></div><dl class="project-meta"><div><dt>Role</dt><dd data-project-role></dd></div><div><dt>Tech</dt><dd data-project-tech></dd></div><div><dt>Systems</dt><dd data-project-systems></dd></div></dl></article></div>
+        </div>
+        <div class="accordion-item" data-accordion-item>
+          <button class="project-button accordion-trigger" type="button" data-project-index="1" aria-expanded="false"><span><b>Tides of Eternity</b><small>In development isometric action roguelike</small></span></button>
+          <div class="accordion-panel"><article class="project-card" data-project-card><div class="project-visual"><h3 data-project-title></h3><p data-project-summary></p><a class="project-action" data-project-link hidden></a></div><dl class="project-meta"><div><dt>Role</dt><dd data-project-role></dd></div><div><dt>Tech</dt><dd data-project-tech></dd></div><div><dt>Systems</dt><dd data-project-systems></dd></div></dl></article></div>
+        </div>
+        <div class="accordion-item" data-accordion-item>
+          <button class="project-button accordion-trigger" type="button" data-project-index="2" aria-expanded="false"><span><b>Mario World 1-1 in Unreal</b><small>Blueprint platforming prototype</small></span></button>
+          <div class="accordion-panel"><article class="project-card" data-project-card><div class="project-visual"><h3 data-project-title></h3><p data-project-summary></p><a class="project-action" data-project-link hidden></a></div><dl class="project-meta"><div><dt>Role</dt><dd data-project-role></dd></div><div><dt>Tech</dt><dd data-project-tech></dd></div><div><dt>Systems</dt><dd data-project-systems></dd></div></dl></article></div>
+        </div>
+        <div class="accordion-item" data-accordion-item>
+          <button class="project-button accordion-trigger" type="button" data-project-index="3" aria-expanded="false"><span><b>Demons &amp; Dining, Darling!</b><small>2D cooking and dialogue prototype</small></span></button>
+          <div class="accordion-panel"><article class="project-card" data-project-card><div class="project-visual"><h3 data-project-title></h3><p data-project-summary></p><a class="project-action" data-project-link hidden></a></div><dl class="project-meta"><div><dt>Role</dt><dd data-project-role></dd></div><div><dt>Tech</dt><dd data-project-tech></dd></div><div><dt>Systems</dt><dd data-project-systems></dd></div></dl></article></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+

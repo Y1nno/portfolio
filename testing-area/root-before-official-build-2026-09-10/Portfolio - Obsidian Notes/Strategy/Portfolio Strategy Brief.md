@@ -74,3 +74,12 @@ Use [[Competency Definitions]] and [[Competency Matrix]].
 - Overemphasizing project management or Power Platform experience at the expense of programming identity.
 - Completion gap: no Steam releases and only a rough Itch.io prototype currently.
 - Career-switcher framing must avoid sounding like passion alone is the qualification; it should be backed by evidence of disciplined learning, project work, and professional reliability.
+
+## New Material - 2026-09-11 Job Posting Learnings
+
+See [[Job Posting Learnings - 2026-09-11]].
+
+Early posting research reinforces the existing gameplay-programmer thesis but sharpens it: the portfolio should prove that Wesley can translate design requirements into working, maintainable gameplay systems. The strongest near-term positioning is Unity/C# gameplay generalist with visible systems work, plus Unreal/Blueprints as a secondary lane.
+
+Project pages should emphasize evidence for playable systems, debugging/iteration, Git/source-control process, communication in small teams, and code or process artifacts that support a technical conversation. Senior postings should be treated as ceiling/barometer data, not as the minimum entry-level bar.
+
