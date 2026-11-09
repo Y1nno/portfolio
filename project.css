@@ -49,9 +49,20 @@ h2 {
   color: var(--text);
 }
 
+h3 {
+  margin: 30px 0 10px;
+  font-size: 1rem;
+  color: var(--text);
+}
+
 p {
   color: var(--muted);
   margin: 0 0 16px;
+}
+
+code {
+  color: var(--text);
+  font: 0.95em ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
 }
 
 ul {
@@ -407,6 +418,233 @@ li {
   line-height: 1.55;
 }
 
+.code-callout {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.42fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  margin: 24px 0 30px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgb(0 0 0 / 16%);
+}
+
+.code-callout h4 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.code-callout p {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.code-callout .code-proof {
+  margin: 0;
+}
+
+/* Collapsible work sections */
+.work-details {
+  margin-top: 44px;
+}
+
+.work-details .system-tab-title {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+/* Timeline case studies */
+.case-study-section {
+  width: min(100%, 980px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.case-study-intro {
+  max-width: none;
+}
+
+.case-study-intro p {
+  max-width: 92ch;
+}
+
+.timeline {
+  margin-top: 34px;
+  border-left: 1px solid var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 52px 28px;
+}
+
+.work-details .timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 5px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-strong);
+}
+
+.timeline-label {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.timeline-label span {
+  color: var(--text);
+}
+
+.timeline-card {
+  padding: 0 0 2px;
+}
+
+.timeline-card p {
+  max-width: 92ch;
+}
+
+.code-compare {
+  margin: 28px 0 4px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.code-compare-header {
+  max-width: 92ch;
+  margin-bottom: 18px;
+}
+
+.code-compare-header h4,
+.annotated-code h4 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 0.98rem;
+}
+
+.code-compare-header p,
+.annotated-code-header p {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.code-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.code-column h5 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.code-column p {
+  min-height: 64px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.pickup-data-node {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.pickup-data-connector {
+  padding: 6px 14px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.pickup-data-connector span {
+  color: var(--accent-strong);
+}
+
+.pickup-data-rewards {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.pickup-data-rewards dd {
+  margin: 0;
+}
+
+.annotated-code {
+  margin: 28px 0 4px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.annotated-code-header {
+  max-width: 78ch;
+  margin-bottom: 18px;
+}
+
+.annotated-code-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 26px;
+  align-items: start;
+}
+
+.annotated-code-body .code-proof:first-child {
+  margin-top: 0;
+}
+
+.annotation-list {
+  display: grid;
+  gap: 18px;
+}
+
+.annotation {
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.annotation:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.annotation b {
+  color: var(--text);
+}
+
+.annotation p {
+  margin: 7px 0 0;
+  font-size: 0.9rem;
+}
+
+.mark {
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.code-note {
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
 /* Split layout + pullquote */
 .split {
   display: grid;
@@ -443,6 +681,19 @@ li {
 
   .split {
     grid-template-columns: 1fr;
+  }
+
+  .code-callout {
+    grid-template-columns: 1fr;
+  }
+
+  .code-columns,
+  .annotated-code-body {
+    grid-template-columns: 1fr;
+  }
+
+  .code-column p {
+    min-height: auto;
   }
 }
 
@@ -487,5 +738,17 @@ li {
   .code-proof {
     font-size: 0.78rem;
     padding: 14px;
+  }
+
+  .timeline {
+    border-left: 0;
+  }
+
+  .timeline-item {
+    padding-left: 0;
+  }
+
+  .timeline-item::before {
+    display: none;
   }
 }

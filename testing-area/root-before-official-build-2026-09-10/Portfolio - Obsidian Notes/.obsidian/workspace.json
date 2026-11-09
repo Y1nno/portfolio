@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "00 - Portfolio Dashboard.md",
+                "file": "Projects/Snowmageddon/Evidence Ledger.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "00 - Portfolio Dashboard"
+              "title": "Evidence Ledger"
             }
           }
         ]
@@ -190,8 +190,10 @@
   },
   "active": "efeff2c1bd8faac3",
   "lastOpenFiles": [
-    "Review/Final QA.md",
     "00 - Portfolio Dashboard.md",
+    "Projects/Snowmageddon/Presentation Experiments.md",
+    "Analysis/Snowmageddon Replacement Assessment.md",
+    "Review/Final QA.md",
     "Site/Information Architecture.md",
     "Analysis/Cross-Project Themes.md",
     "Projects/Spa Game - Alien Spa/Short Copy.md",
@@ -215,8 +217,6 @@
     "Projects/Tides of Eternity/Case Study.md",
     "Projects/Tides of Eternity/Code Excerpts.md",
     "Projects/Tides of Eternity/Interview Questions.md",
-    "Projects/Tides of Eternity/Asset Manifest.md",
-    "Projects/Tides of Eternity/Evidence Ledger.md",
     "Projects/Tides of Eternity",
     "Projects/Spa Game - Alien Spa",
     "Templates",

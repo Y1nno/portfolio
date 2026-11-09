@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Code Presentation Reference - Wesley Parrish Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="project.css">
+  <style>
+    .reference-note { margin-top: 20px; color: var(--muted); font-size: 0.92rem; }
+    .pattern-section { margin-top: 46px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .pattern-section h2 { margin-top: 0; }
+    .usage-grid { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 28px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .usage-grid b { color: var(--text); }
+    .code-compare {
+      margin: 28px 0 4px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .code-compare-header {
+      max-width: 78ch;
+      margin-bottom: 18px;
+    }
+    .code-compare-header h4 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+    .code-compare-header p {
+      margin: 0;
+      font-size: 0.92rem;
+    }
+    .code-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+    .code-column h5 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .code-column p {
+      min-height: 64px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+    }
+    .annotated-code {
+      margin: 28px 0 4px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .annotated-code-header {
+      max-width: 78ch;
+      margin-bottom: 18px;
+    }
+    .annotated-code-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 26px;
+      align-items: start;
+    }
+    .annotated-code-body .code-proof:first-child {
+      margin-top: 0;
+    }
+    .annotation-list {
+      display: grid;
+      gap: 18px;
+    }
+    .annotation {
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .annotation:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+    .annotation b {
+      color: var(--text);
+    }
+    .annotation p {
+      margin: 7px 0 0;
+      font-size: 0.9rem;
+    }
+    .mark {
+      color: var(--accent-strong);
+      font-weight: 700;
+    }
+    .code-note {
+      color: var(--accent-strong);
+      font-weight: 700;
+    }
+    .markup-example {
+      margin-top: 22px;
+    }
+    @media (max-width: 1100px) { .code-columns, .annotated-code-body { grid-template-columns: 1fr; } .code-column p { min-height: auto; } }
+    @media (max-width: 800px) { .usage-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="project-hero">
+      <div class="project-intro">
+        <div class="page-title">
+          <a class="back" href="snowmageddon-test-timeline.html">&larr; Back to Snowmageddon timeline</a>
+          <h1>Code Presentation Reference</h1>
+          <p class="role">Reusable patterns for portfolio code blocks. This is a reference page, not a main-site destination.</p>
+          <p class="reference-note">Use these patterns when code needs to prove a design decision. Avoid decorative panels, autoplay motion, and long unguided code dumps.</p>
+        </div>
+        <div class="summary">
+          <p>Use side-by-side comparison and annotated code as separate tools. Side-by-side is for contrast; annotation is for guided reading.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pattern-section">
+      <h2>Pattern: Side By Side</h2>
+      <p>Use this when a project needs to show a before/after refactor, responsibility change, or implementation decision.</p>
+      <div class="usage-grid">
+        <b>Best for</b>
+        <p>Refactors where the old and new shapes are meaningfully different: update-loop polling to input events, concrete classes to data-driven assets, or controller-owned behavior to object-owned lifecycle.</p>
+      </div>
+      <div class="usage-grid">
+        <b>Avoid when</b>
+        <p>The old version is not available, the code is too long to compare cleanly, or the comparison would distract from a more important gameplay clip or diagram.</p>
+      </div>
+
+      <div class="code-compare">
+        <div class="code-compare-header">
+          <h4>Code Lens: name the decision being proven</h4>
+          <p>Start with the claim. The reader should know why the code exists before they enter the code block.</p>
+        </div>
+        <div class="code-columns">
+          <div class="code-column">
+            <h5>Before: describe the old responsibility</h5>
+            <p>Keep this caption short. It should identify the architectural issue, not roast the old code.</p>
+<pre class="code-proof"><code>private void OldSystem()
+{
+    <span class="mark">CheckInputEveryFrame();</span>
+    HoldTemporaryState();
+    ManageSpawnedObject();
+}</code></pre>
+          </div>
+          <div class="code-column">
+            <h5>After: describe the new responsibility</h5>
+            <p>Explain what moved, what stayed, and why the new boundary is easier to reason about.</p>
+<pre class="code-proof"><code>private void OnEnable()
+{
+    <span class="mark">action.performed += StartBehavior;</span>
+    <span class="mark">action.canceled += StopBehavior;</span>
+}
+
+private void StartBehavior()
+{
+    if (!CanStart()) return;
+    SpawnedObject.Run();
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pattern-section">
+      <h2>Pattern: Annotated Code Lens</h2>
+      <p>Use this when one code excerpt needs guided interpretation. This is best when the reader should understand why specific lines matter.</p>
+      <div class="usage-grid">
+        <b>Best for</b>
+        <p>Final implementations, lifecycle methods, tricky edge cases, data-driven definitions, and snippets where the important part is not obvious from the code alone.</p>
+      </div>
+      <div class="usage-grid">
+        <b>Avoid when</b>
+        <p>The before/after contrast is the main story. In that case, use side-by-side first and reserve annotations for a separate follow-up excerpt.</p>
+      </div>
+      <div class="usage-grid">
+        <b>Number markers</b>
+        <p>Use short inline markers like <code>// 1</code> when a highlighted line maps directly to a note. If a note explains the whole excerpt, place the marker on the method signature or first controlling line.</p>
+      </div>
+
+      <div class="annotated-code">
+        <div class="annotated-code-header">
+          <h4>Code Lens: name the behavior being explained</h4>
+          <p>Start with the claim. Highlight only the lines that support the claim.</p>
+        </div>
+        <div class="annotated-code-body">
+          <div>
+<pre class="code-proof"><code>private void StartBehavior()
+{
+    <span class="mark">if (!CanStart()) return;</span> <span class="code-note">// 1</span>
+    PrepareTemporaryState();
+    <span class="mark">SpawnedObject.Run();</span> <span class="code-note">// 2</span>
+}</code></pre>
+          </div>
+          <aside class="annotation-list" aria-label="Annotated code guidance">
+            <div class="annotation">
+              <b>1. Guard the state</b>
+              <p>Explain what invalid case this prevents.</p>
+            </div>
+            <div class="annotation">
+              <b>2. Name the handoff</b>
+              <p>Explain where responsibility moves after this method.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="pattern-section">
+      <h2>Markup Templates</h2>
+      <p>These are reusable skeletons. Use one pattern at a time unless a section truly needs both in separate beats.</p>
+<pre class="code-proof markup-example"><code>&lt;div class="code-compare"&gt;
+  &lt;div class="code-compare-header"&gt;
+    &lt;h4&gt;Code Lens: [decision being proven]&lt;/h4&gt;
+    &lt;p&gt;[One sentence explaining why this code matters.]&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class="code-columns"&gt;
+    &lt;div class="code-column"&gt;
+      &lt;h5&gt;Before: [old shape]&lt;/h5&gt;
+      &lt;p&gt;[Short caption.]&lt;/p&gt;
+      &lt;pre class="code-proof"&gt;&lt;code&gt;[before code]&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;div class="code-column"&gt;
+      &lt;h5&gt;After: [new shape]&lt;/h5&gt;
+      &lt;p&gt;[Short caption.]&lt;/p&gt;
+      &lt;pre class="code-proof"&gt;&lt;code&gt;[after code]&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+<pre class="code-proof markup-example"><code>&lt;div class="annotated-code"&gt;
+  &lt;div class="annotated-code-header"&gt;
+    &lt;h4&gt;Code Lens: [behavior being explained]&lt;/h4&gt;
+    &lt;p&gt;[One sentence claim.]&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class="annotated-code-body"&gt;
+    &lt;div&gt;
+      &lt;pre class="code-proof"&gt;&lt;code&gt;&lt;span class="mark"&gt;[important line]&lt;/span&gt; &lt;span class="code-note"&gt;// 1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;aside class="annotation-list"&gt;
+      &lt;div class="annotation"&gt;
+        &lt;b&gt;1. [Point]&lt;/b&gt;
+        &lt;p&gt;[Explanation.]&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/aside&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+  </main>
+</body>
+</html>

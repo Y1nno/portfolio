@@ -1,14 +1,34 @@
 (() => {
   const projects = [
     {
+      title: "Snowmageddon",
+      summary: "Tiny Cowboy arcade snowball combat project where I refactored and extended gameplay systems inside an existing Unity codebase.",
+      role: "Gameplay Programmer / Co-Developer",
+      tech: "Unity / C#",
+      systems: "Ability refactor, data-driven pickups, shop spawning.",
+      href: "snowmageddon.html",
+      poster: "resources/snowmageddon/snowmageddon-static.jpg",
+      video: "resources/snowmageddon/snowmageddon-video.mp4"
+    },
+    {
+      title: "P.U.F.F.-N.",
+      summary: "A relaxing Unity exploration game focused on physics-informed puffin flight, traversal, and player-readable movement.",
+      role: "Gameplay Programmer",
+      tech: "Unity 6 / C#",
+      systems: "Flight systems, camera, traversal, recovery.",
+      href: "puffn.html",
+      image: "resources/puffn/puff-n-static-image.jpg",
+      video: "resources/puffn/puff-n-video.mp4"
+    },
+    {
       title: "Untitled Spa Game",
       summary: "Spa management sim work centered on guests, resources, and player-planned appointment timing.",
       role: "Co-Developer",
       tech: "Unity / C#",
       systems: "NPC AI, Data Driven Interactions, UI Logic.",
       href: "",
-      image: "project-backgrounds/01.png",
-      video: ""
+      poster: "resources/untitled-spa-game/untitled-spa-game-static.png",
+      video: "resources/untitled-spa-game/untitled-spa-game.mp4"
     },
     {
       title: "Tides of Eternity",
@@ -17,29 +37,8 @@
       tech: "Unity / C#",
       systems: "Player Movement, Data Driven Systems, Combat.",
       href: "",
-      image: "project-backgrounds/02.png",
-      video: ""
-    },
-    {
-      title: "Mario World 1-1 in Unreal",
-      summary: "Weekend Unreal prototype reinterpreting classic platformer mechanics in a 3d environment.",
-      role: "Solo Developer",
-      tech: "Unreal Engine / Blueprints",
-      systems: "Blueprint logic, enemies, interactive environment, HUD UI, win states.",
-      href: "unreal-weekend.html",
-      image: "project-backgrounds/03.png",
-      video: "project-backgrounds/03.mp4",
-      mobileVideo: "project-backgrounds/03-mobile.mp4"
-    },
-    {
-      title: "Demons & Dining, Darling!",
-      summary: "IGA Level 1 jam submission. Cooking and dating-sim with timed orders, ingredient prep, serving, and Ink dialogue.",
-      role: "Unity Developer",
-      tech: "Unity / C# / Ink",
-      systems: "Cooking gameplay logic, pointer interaction, dialogue.",
-      href: "",
-      image: "project-backgrounds/04.png",
-      video: ""
+      poster: "resources/tides-of-eternity/tides-of-eternity-static.png",
+      video: "resources/tides-of-eternity/tides-of-eternity.mp4"
     },
   ];
 
@@ -93,8 +92,9 @@
       fields.video.setAttribute("playsinline", "");
       fields.video.setAttribute("webkit-playsinline", "");
 
-      if (project.image) {
-        fields.video.poster = project.image;
+      const poster = project.poster || (!videoSrc && project.image);
+      if (poster) {
+        fields.video.poster = poster;
       } else {
         fields.video.removeAttribute("poster");
       }
@@ -129,11 +129,13 @@
       items.forEach((item, itemIndex) => {
         const isActive = itemIndex === index;
         item.classList.toggle("is-active", isActive);
-        item.setAttribute("aria-pressed", String(isActive));
+        if (item.tagName === "BUTTON") {
+          item.setAttribute("aria-pressed", String(isActive));
+        }
       });
 
       selector.classList.add("is-switching");
-      selector.style.setProperty("--project-bg", `url("${project.image}")`);
+      selector.style.setProperty("--project-bg", project.video ? "none" : `url("${project.image}")`);
       selector.classList.toggle("has-video", Boolean(project.video));
       updateVideo(project, Boolean(options.playVideoNow));
 
@@ -188,11 +190,13 @@
         setProject(index);
         pauseThenResume();
       });
-      item.addEventListener("click", () => {
-        setProject(index, { playVideoNow: true });
-        centerSelectedItem(item);
-        pauseThenResume();
-      });
+      if (item.tagName === "BUTTON") {
+        item.addEventListener("click", () => {
+          setProject(index, { playVideoNow: true });
+          centerSelectedItem(item);
+          pauseThenResume();
+        });
+      }
     });
 
     selector.addEventListener("mouseenter", () => {

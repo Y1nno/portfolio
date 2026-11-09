@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="P.U.F.F.-N. project page: Unity gameplay programming focused on physics-informed puffin flight, camera systems, water movement, and player feedback." />
+  <title>P.U.F.F.-N. - Wesley Parrish</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="project.css">
+  <style>
+    .puffn-page .page-title h1 {
+      max-width: 780px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+    }
+
+    .puffn-page .project-intro { min-width: 0; }
+
+    .puffn-page .project-hero aside dl {
+      margin: 0;
+      padding: 0;
+    }
+
+    .puffn-page .project-hero aside dl div {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .puffn-page .project-hero aside dt {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .puffn-page .project-hero aside dd {
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
+
+    .puffn-page .lede {
+      max-width: 78ch;
+      font-size: 1.08rem;
+      line-height: 1.75;
+    }
+
+    .puffn-page .media-intro {
+      max-width: 72ch;
+      margin-bottom: 22px;
+    }
+
+    .puffn-page .video-slot {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #050505;
+      box-shadow: 0 18px 36px rgb(0 0 0 / 24%);
+    }
+
+    .puffn-page .video-slot iframe {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 0;
+    }
+
+    .puffn-page .slot-caption {
+      margin: 0;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .puffn-page .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .puffn-page .screenshot-slot {
+      display: grid;
+      min-height: 230px;
+      place-items: center;
+      padding: 24px;
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgb(255 255 255 / 3%) 25%, transparent 25% 50%, rgb(255 255 255 / 3%) 50% 75%, transparent 75%),
+        var(--surface-2);
+      background-size: 28px 28px;
+      text-align: center;
+    }
+
+    .puffn-page .screenshot-slot strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .puffn-page .screenshot-slot span {
+      color: var(--faint);
+      font-size: 0.88rem;
+    }
+
+    .puffn-page .media-note {
+      margin-top: 14px;
+      color: var(--faint);
+      font-size: 0.88rem;
+    }
+
+    .puffn-page .two-column {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .puffn-page .two-column h2 { margin-top: 0; }
+
+    .puffn-page .callout {
+      margin-top: 28px;
+      padding: 20px;
+      border-left: 3px solid var(--accent-strong);
+      background: rgb(85 0 0 / 13%);
+    }
+
+    .puffn-page .callout p:last-child { margin-bottom: 0; }
+
+    .puffn-page .code-evidence-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .puffn-page .code-evidence-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .puffn-page .code-evidence-card summary {
+      display: grid;
+      grid-template-columns: minmax(180px, 0.6fr) minmax(0, 1fr);
+      gap: 18px;
+      padding: 18px 20px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .puffn-page .code-evidence-card summary::-webkit-details-marker { display: none; }
+
+    .puffn-page .code-evidence-card summary:focus-visible {
+      outline: 2px solid var(--accent-strong);
+      outline-offset: -3px;
+    }
+
+    .puffn-page .code-evidence-card summary::before {
+      content: "+";
+      display: grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      margin-right: 8px;
+      float: left;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--accent-strong);
+    }
+
+    .puffn-page .code-evidence-card[open] summary::before { content: "-"; }
+
+    .puffn-page .code-evidence-title {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .puffn-page .code-evidence-title small {
+      display: block;
+      margin-top: 4px;
+      color: var(--faint);
+      font: 0.82rem ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    .puffn-page .code-evidence-summary {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .puffn-page .code-evidence-body {
+      padding: 0 20px 22px;
+      border-top: 1px solid var(--border);
+    }
+
+    .puffn-page .code-evidence-body p { margin-top: 18px; }
+
+    .puffn-page .code-evidence-body .code-proof {
+      margin-top: 16px;
+      font-size: 0.78rem;
+    }
+
+    .puffn-page .code-evidence-grid {
+      display: none;
+    }
+
+    .puffn-page .code-selector[data-code-selector="legacy"] {
+      display: none;
+    }
+
+    .puffn-page .implementation-bridge {
+      margin-top: 30px;
+    }
+
+    .puffn-page .code-selector {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      overflow: hidden;
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .puffn-page .code-selector-nav {
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      padding: 10px;
+      border-right: 1px solid var(--border);
+      background: rgb(0 0 0 / 16%);
+    }
+
+    .puffn-page .code-selector-item {
+      display: block;
+      width: 100%;
+      padding: 14px 14px 13px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+      white-space: normal;
+      transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+    }
+
+    .puffn-page .code-selector-item:hover,
+    .puffn-page .code-selector-item:focus-visible {
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+
+    .puffn-page .code-selector-item.is-active {
+      border-color: var(--accent-soft);
+      background: linear-gradient(135deg, rgb(85 0 0 / 30%), var(--surface-2));
+      color: var(--text);
+    }
+
+    .puffn-page .code-selector-item small {
+      display: block;
+      margin-top: 4px;
+      color: var(--faint);
+      font-size: 0.8rem;
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+    }
+
+    .puffn-page .code-selector-display {
+      min-width: 0;
+      padding: 24px;
+    }
+
+    .puffn-page .code-selector-heading {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .puffn-page .code-selector-heading h3 {
+      margin: 0;
+    }
+
+    .puffn-page .code-selector-heading small {
+      color: var(--faint);
+    }
+
+    .puffn-page .code-selector-panel > p {
+      max-width: 82ch;
+    }
+
+    .puffn-page .function-notes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .puffn-page .function-note {
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .puffn-page .function-note b {
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .puffn-page .function-note p {
+      margin: 6px 0 0;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 800px) {
+      .puffn-page .code-selector {
+        grid-template-columns: 1fr;
+      }
+
+      .puffn-page .code-selector-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .puffn-page .function-notes { grid-template-columns: 1fr; }
+    }
+
+    .puffn-page .media-section {
+      margin-top: 64px;
+    }
+
+    .puffn-page .media-section h2 {
+      margin-top: 0;
+    }
+
+    .puffn-page .steam-cta {
+      margin: 56px 0 24px;
+      text-align: center;
+    }
+
+    .puffn-page .steam-cta a {
+      color: var(--text);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .puffn-page .flight-tabs {
+      margin-top: 22px;
+    }
+
+    .puffn-page .flight-tab-list {
+      display: flex;
+      align-items: flex-end;
+      gap: 0;
+      margin-bottom: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .puffn-page .flight-tab {
+      flex: 1 1 0;
+      min-height: 0;
+      padding: 12px 22px;
+      border: 1px solid var(--border);
+      border-bottom: 0;
+      border-radius: var(--radius) var(--radius) 0 0;
+      background: var(--surface-2);
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+      transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+    }
+
+    .puffn-page .flight-tab:hover,
+    .puffn-page .flight-tab:focus-visible {
+      border-color: var(--accent-soft);
+      color: var(--text);
+    }
+
+    .puffn-page .flight-tab[aria-selected="true"] {
+      border-color: var(--accent-strong);
+      margin-bottom: -1px;
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .puffn-page .flight-tab strong {
+      display: block;
+      margin-bottom: 4px;
+      color: inherit;
+    }
+
+    .puffn-page .flight-tab span {
+      display: block;
+      color: var(--faint);
+      font-size: 0.82rem;
+    }
+
+    .puffn-page .flight-tab-panel {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 0 var(--radius) var(--radius) var(--radius);
+      background: var(--surface);
+    }
+
+    .puffn-page .flight-tab-panel h3 {
+      margin: 0;
+      padding: 18px 20px 0;
+    }
+
+    .puffn-page .flight-tab-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(230px, 0.75fr);
+      align-items: start;
+    }
+
+    .puffn-page .flight-gif-slot {
+      display: grid;
+      grid-column: 2;
+      min-height: 0;
+      margin: 18px 20px 20px 0;
+      place-items: center;
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgb(255 255 255 / 3%) 25%, transparent 25% 50%, rgb(255 255 255 / 3%) 50% 75%, transparent 75%),
+        var(--surface-2);
+      background-size: 28px 28px;
+      text-align: center;
+    }
+
+    .puffn-page .flight-gif-slot strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .puffn-page .flight-gif-slot span {
+      display: block;
+      color: var(--faint);
+      font-size: 0.86rem;
+    }
+
+    .puffn-page .flight-gif-slot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: calc(var(--radius) - 1px);
+    }
+
+    .puffn-page .flight-tab-copy {
+      grid-column: 1;
+      padding: 18px 20px 20px;
+    }
+
+    .puffn-page .flight-tab-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 700px) {
+      .puffn-page .screenshot-grid,
+      .puffn-page .two-column,
+      .puffn-page .flight-tab-list { overflow-x: auto; }
+
+      .puffn-page .flight-tab-layout { grid-template-columns: 1fr; }
+      .puffn-page .flight-tab-copy,
+      .puffn-page .flight-gif-slot {
+        grid-column: 1;
+      }
+      .puffn-page .flight-gif-slot { margin: 0 20px 20px; }
+    }
+  </style>
+  <script src="background-shader.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand"><a href="index.html">Wesley Parrish</a><span>Gameplay, Simulation, and Systems Programmer</span></div>
+      <nav class="nav-menu">
+        <div class="nav-dropdown">
+          <a href="index.html#projects">Projects</a>
+          <div class="nav-dropdown-menu" aria-label="Project pages">
+            <a href="snowmageddon.html">Snowmageddon</a>
+            <a href="puffn.html">P.U.F.F.-N.</a>
+          </div>
+        </div>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="WPARRISH.pdf">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container puffn-page">
+    <section class="project-hero">
+      <div class="project-intro">
+        <div class="page-title">
+          <a class="back" href="index.html#projects">&larr; Back to Projects</a>
+          <h1>P.U.F.F.-N. <span aria-hidden="true">—</span> Proto Utility Flying Forager Navigator</h1>
+          <p class="role">Gameplay Programmer</p>
+        </div>
+        <div class="summary lede">
+          <p>P.U.F.F.-N. is a relaxing Unity exploration game where players pilot a puffin through a large island environment, collect fish, navigate speed rings, and develop mastery of physics-informed flight.</p>
+          <p>The project’s central design question was simple to describe and difficult to solve: how can flight feel expressive and believable without becoming difficult to pilot? I built the flight model and the systems around it to help players learn and enjoy the flying PUFF-N.</p>
+        </div>
+      </div>
+      <aside aria-label="Project facts">
+        <dl>
+          <div><dt>Status</dt><dd><a href="https://store.steampowered.com/app/5449430/PUFFN_ProtoUtility_Flying_ForagerNavigator/" target="_blank" rel="noopener noreferrer">Scheduled for public release November 5, 2026 &rarr;</a></dd></div>
+          <div><dt>Team</dt><dd>Five-person Indie Game Academy Level 3 team</dd></div>
+          <div><dt>Tech</dt><dd>Unity 6 / C# / Rigidbody physics</dd></div>
+          <div><dt>Focus</dt><dd>Flight systems, camera, traversal, feedback, UI</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <section class="case-study-section">
+      <h2>What I built</h2>
+      <ul>
+        <li>Bird flight model and flying components, including pitch, yaw, roll, acceleration, lift, drag, stall behavior, and player-focused stabilization.</li>
+        <li>Cinematic camera system with velocity look ahead and field of view, bounded orbit controls, and automatic recentering.</li>
+        <li>Ground detection, collision recovery, reset and respawn behavior, and crash feedback.</li>
+        <li>Water based movement, buoyancy, underwater transitions, and damping.</li>
+        <li>Action-gated tutorial, keyboard/controller input configuration, main-menu UI</li>
+	<li>Polish: audio manager, speed-ring interaction effect application and animation, UI & UI programatic animations, illustrated cutscene orchestration, and player movement feedback.</li>
+      </ul>
+
+    <section>
+      <h2>The flight problem</h2>
+      <div class="flight-tabs" data-flight-tabs>
+        <div class="flight-tab-list" role="tablist" aria-label="Flight problem and solution">
+          <button class="flight-tab" id="flight-problem-tab" type="button" role="tab" aria-selected="true" aria-controls="flight-problem-panel" tabindex="0">
+            <strong>Problem</strong>
+            <span>Flight Stabilization Off</span>
+          </button>
+          <button class="flight-tab" id="flight-solution-tab" type="button" role="tab" aria-selected="false" aria-controls="flight-solution-panel" tabindex="-1">
+            <strong>Solution</strong>
+            <span>Flight Stabilization On</span>
+          </button>
+        </div>
+
+        <article class="flight-tab-panel" id="flight-problem-panel" role="tabpanel" aria-labelledby="flight-problem-tab">
+          <div class="flight-tab-layout">
+            <div class="flight-tab-copy">
+              <p>The underlying flight model began with aerodynamic principles such as angle of attack, lift, drag, and stall behavior. Theoretically, this gave the bird movement a good starting point, as the player could build expectations about how the bird should move based on their previous experience of watching birds in flight.</p>
+              <p>However, during prototyping and the first playtests, it was obvious that aerodynamic realism did not automatically translate into understandable or controllable flight. Without artificial stabilization, the bird could continue rotating, drift through turns, or carry unwanted motion after the player had already changed inputs. Players described the result as fighting their own controls: the bird and camera could turn in a way that felt like it was pulling them back in the wrong direction. That made the flight difficult to pilot and made onboarding a new control scheme a significant problem.</p>
+            </div>
+            <div class="flight-gif-slot">
+              <img src="resources/puffn/unstable-flight.gif" alt="P.U.F.F.-N. current build with player stabilization disabled, showing unstable flight over the water" />
+            </div>
+          </div>
+        </article>
+
+        <article class="flight-tab-panel" id="flight-solution-panel" role="tabpanel" aria-labelledby="flight-solution-tab" hidden>
+          <div class="flight-tab-layout">
+            <div class="flight-tab-copy">
+              <p>Going to the original design goal for the project, the focus of the game was casual, relaxed exploration. This meant that mechanics should feel approachable and forgiving. The guiding question for adding flight stablization features was: "What does the player think should happen next, and what assistance helps the simulation respond to that intention?"</p>
+              <p>In response to playtest feedback, I added damping, camera-based yaw alignment, roll auto-leveling, high-speed yaw limits, velocity alignment, forgiving stall behaviors, and a forgiving recovery. These systems depart from strict aerodynamic behavior, but they make the player’s intent easier to express. They help the bird settle, turn in the expected direction, and stop influencing the motion once the correction is complete, which ultimately improves the playability of the flight. The artificial alignment was a deliberate trade: the simulation established believable motion, but the casual experience had priority when the two disagreed.</p>
+            </div>
+            <div class="flight-gif-slot">f
+              <img src="resources/puffn/stable-flight.gif" alt="P.U.F.F.-N. current build with player stabilization enabled, showing stable flight over the island" />
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Flight implementation</h2>
+      <p>I generally try to keep as much work as possible out of Unity's <code>Update</code>, <code>FixedUpdate</code>, and <code>LateUpdate</code> functions. Not every system needs to run every frame, and keeping those loops focused makes behavior easier to reason about. That said, I elected to keep the bird’s physics in <code>FixedUpdate</code> because the bird’s physics are central to gameplay, continuously active while the bird is being controlled, and need to be evaluated constantly.</p>
+      <p>The <code>FixedUpdate</code> of the bird controller below is therefore deliberately limited to the work that must participate in the bird’s active movement: input, air and water influence, steering, aerodynamic forces, recovery, and flap forces, all contained within their respective functions to ease future modifications.</p>
+
+      <div class="annotated-code">
+        <div class="annotated-code-header">
+          <h4>Code: Bird Controller's <code>FixedUpdate</code> </h4>
+        </div>
+        <div class="annotated-code-body">
+          <pre class="code-proof"><code>private void FixedUpdate() <span class="code-note">// 1</span>
+{
+    if (waterProbe.IsInWater)
+    {
+        StopAutoFlap();
+        EndStall();
+    }
+
+    ReadInput();
+
+    float airInfluence = 1f - waterProbe.Submersion; <span class="code-note">// 2</span>
+
+    ApplySteering(airInfluence);
+    ApplyVelocityForwardAlignment(airInfluence); <span class="code-note">// 3</span>
+    ApplyAerodynamics(airInfluence);
+    ApplyWaterMovement();
+    ApplyStallRecoveryTorque();
+    ApplyGroundRecovery();
+    ApplyVisualBanking(); <span class="code-note">// 4</span>
+
+    if (flapHeld)
+    {
+        rb.AddForce(transform.forward * flapForce * airInfluence, ForceMode.Acceleration);
+        rb.AddForce(transform.up * flapLiftForce * airInfluence, ForceMode.Acceleration);
+    }
+
+}</code></pre>
+          <aside class="annotation-list" aria-label="FixedUpdate code annotations">
+            <div class="annotation">
+              <b>1. FixedUpdate over Update</b>
+              <p>The block calls <code>Rigidbody.AddForce</code>, <code>AddTorque</code>, and <code>VelocityChange</code> through the functions below it. Keeping those calls in <code>FixedUpdate</code> makes them part of Unity’s fixed physics step instead of tying their results to render-frame timing.</p>
+            </div>
+            <div class="annotation">
+              <b>2. Air and water share one influence value</b>
+              <p><code>airInfluence</code> is calculated as <code>1f - waterProbe.Submersion</code> and passed into steering, alignment, and aerodynamics. Those systems fade out as <code>ApplyWaterMovement()</code> takes over, so entering water does not require a separate controller mode.</p>
+            </div>
+            <div class="annotation">
+              <b>3. Player intent is applied before aerodynamics</b>
+              <p><code>ApplySteering</code> and <code>ApplyVelocityForwardAlignment</code> run before <code>ApplyAerodynamics</code>. That order lets input establish the intended rotation and travel direction before lift and drag modify the resulting motion.</p>
+            </div>
+            <div class="annotation">
+              <b>4. Visual banking stays with the physics step</b>
+              <p>The banking target is driven by the same horizontal steering input that drives yaw, so it is intentionally evaluated alongside the physics response. It is a visual effect, but keeping its input and smoothing on the same step prevents the rendered bank from feeling detached from the turn the player just requested.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <p class="implementation-bridge">That orchestration gives the individual systems a predictable place in the flight model. The following sections take a closer look at the major systems behind the bird’s flight, breaking them down into more granular functions and the decisions behind them.</p>
+
+      <div class="code-selector" data-code-selector="flight-functions">
+        <div class="code-selector-nav" role="tablist" aria-label="Flight implementation systems" aria-orientation="vertical">
+          <button class="code-selector-item is-active" type="button" role="tab" aria-selected="true" aria-controls="function-panel-steering" id="function-tab-steering" tabindex="0"><b>Player control</b><small>turning with intent</small></button>
+          <button class="code-selector-item" type="button" role="tab" aria-selected="false" aria-controls="function-panel-aerodynamics" id="function-tab-aerodynamics" tabindex="-1"><b>Flight model</b><small>lift, stall, drag</small></button>
+          <button class="code-selector-item" type="button" role="tab" aria-selected="false" aria-controls="function-panel-stall" id="function-tab-stall" tabindex="-1"><b>Recovery systems</b><small>stalls and collisions</small></button>
+          <button class="code-selector-item" type="button" role="tab" aria-selected="false" aria-controls="function-panel-water" id="function-tab-water" tabindex="-1"><b>Flight camera</b><small>anticipation and follow</small></button>
+        </div>
+        <div class="code-selector-display">
+          <article class="code-selector-panel" id="function-panel-steering" role="tabpanel" aria-labelledby="function-tab-steering">
+            <p>The player-control layer translates input into torque, then uses damping, yaw coordination, roll leveling, and velocity alignment to translate those inputs into player expected behavior. We are compromising physical realism here for readability and player intent.</p>
+            <pre class="code-proof"><code>private void ApplySteering(float airInfluence) <span class="code-note">// Convert input into physical rotation.</span>
+{
+    float pitchControlMultiplier = IsGrounded() ? groundedPitchControlMultiplier : 1f;
+    float pitch = -moveInput.y * pitchTorque * pitchControlMultiplier;
+    float yaw = moveInput.x * yawTorque * GetYawAuthorityMultiplier();
+    float roll = rollInput * rollTorque;
+
+    rb.AddRelativeTorque(new Vector3(pitch, yaw, roll) * airInfluence, ForceMode.Acceleration);
+    ApplyAngularDamping(airInfluence); <span class="code-note">// Keep rotation from carrying past the player’s intent.</span>
+    ApplyYawCoordination(airInfluence);
+    ApplyRollAutoLevel(airInfluence); <span class="code-note">// Gently Rolls the bird to level when there hasn’t been player input for a second.</span>
+}</code></pre>
+            <h4>Velocity alignment</h4>
+            <pre class="code-proof"><code>Vector3 horizontalVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up);
+Vector3 horizontalForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+Vector3 targetVelocity = horizontalForward.normalized * horizontalVelocity.magnitude;
+float alignmentBlend = 1f - Mathf.Exp(-yawOrientationImpactOnVelocity * airInfluence * Time.fixedDeltaTime); <span class="code-note">// Smooth the correction across the physics step.</span>
+Vector3 velocityChange = (targetVelocity - horizontalVelocity) * alignmentBlend;
+rb.AddForce(velocityChange, ForceMode.VelocityChange); <span class="code-note">// Redirect without arbitrarily changing speed.</span></code></pre>
+            <aside class="function-notes" aria-label="Player control design notes">
+              <div class="function-note"><b>Why apply these calls in sequence?</b><p><code>ApplySteering</code> first turns the three input axes into torque. <code>ApplyAngularDamping</code>, <code>ApplyYawCoordination</code>, and <code>ApplyRollAutoLevel</code> then shape that same response, each using <code>airInfluence</code> so the assist fades as the bird enters water.</p></div>
+              <div class="function-note"><b>Why preserve speed during alignment?</b><p><code>horizontalVelocity.magnitude</code> is copied into <code>targetVelocity</code>, so the correction changes direction without choosing a new speed. The resulting difference is applied with <code>ForceMode.VelocityChange</code> to remove the sideways drift that players read as turning the wrong way.</p></div>
+            </aside>
+          </article>
+          <article class="code-selector-panel" id="function-panel-alignment" role="tabpanel" aria-labelledby="function-tab-alignment" hidden>
+            <p>Preserves horizontal speed while gradually redirecting movement toward the bird’s heading, reducing high-speed sideslip.</p>
+            <pre class="code-proof"><code>private void ApplyVelocityForwardAlignment(float airInfluence)
+{
+    if (yawOrientationImpactOnVelocity &lt;= 0f) return;
+
+    Vector3 horizontalVelocity =
+        Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up);
+    Vector3 horizontalForward =
+        Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+
+    if (horizontalVelocity.sqrMagnitude &lt;= 0.0001f
+        || horizontalForward.sqrMagnitude &lt;= 0.0001f) return;
+
+    Vector3 targetVelocity =
+        horizontalForward.normalized * horizontalVelocity.magnitude;
+    float alignmentBlend = 1f - Mathf.Exp(
+        -yawOrientationImpactOnVelocity
+        * airInfluence * Time.fixedDeltaTime);
+
+    Vector3 velocityChange =
+        (targetVelocity - horizontalVelocity) * alignmentBlend;
+    rb.AddForce(velocityChange, ForceMode.VelocityChange);
+}</code></pre>
+          </article>
+          <article class="code-selector-panel" id="function-panel-aerodynamics" role="tabpanel" aria-labelledby="function-tab-aerodynamics" hidden>
+            <p>Calculates lift from airspeed, wing area, angle of attack, and lift coefficient, then softens lift progressively beyond the stall angle and applies drag.</p>
+            <pre class="code-proof"><code>private void ApplyAerodynamics(float airInfluence)
+{
+    if (airInfluence &lt;= 0f) return; <span class="code-note">// No air means no aerodynamic forces to apply.</span>
+
+    Vector3 velocity = rb.linearVelocity;
+    float currentAirspeed = velocity.magnitude;
+    float currentForwardAirspeed = GetForwardAirspeed();
+    float effectiveLiftAirspeed = GetEffectiveLiftAirspeed();
+    if (effectiveLiftAirspeed &lt; minimumAirspeedForLift)
+    {
+        float lowSpeedStallAngleDegrees = GetPitchFromLevelDegrees();
+        float lowSpeedDragForce = ApplyDrag(velocity, zeroLiftDragCoefficient, airInfluence); <span class="code-note">// Preserve drag feedback even when lift cannot be generated.</span>
+        UpdateStallState(Mathf.Abs(lowSpeedStallAngleDegrees), currentForwardAirspeed, effectiveLiftAirspeed);
+        UpdateTelemetry(lowSpeedStallAngleDegrees, currentAirspeed, currentForwardAirspeed, 0f, 0f, lowSpeedDragForce);
+        return;
+    }
+
+    Vector3 airflowDirection = -velocity.normalized;
+    float angleOfAttackDegrees = Vector3.SignedAngle(transform.forward, velocity.normalized, transform.right); <span class="code-note">// Turn orientation and airflow into a controllable lift input.</span>
+    float angleOfAttackRadians = angleOfAttackDegrees * Mathf.Deg2Rad;
+    float liftCoefficient = Mathf.Clamp(liftSlope * angleOfAttackRadians, -maxLiftCoefficient, maxLiftCoefficient);
+
+    float absAngleOfAttack = Mathf.Abs(angleOfAttackDegrees);
+    UpdateStallState(absAngleOfAttack, currentForwardAirspeed, effectiveLiftAirspeed);
+    if (absAngleOfAttack &gt; stallAngleDegrees)
+    {
+        float stallBlend = Mathf.InverseLerp(stallAngleDegrees, 90f, absAngleOfAttack);
+        liftCoefficient *= Mathf.Lerp(1f, stallLiftMultiplier, stallBlend); <span class="code-note">// Make stall loss gradual so the player can read and recover from it.</span>
+    }
+
+    float liftForce = Mathf.Clamp(CalculateDynamicPressure(effectiveLiftAirspeed) * wingArea * liftCoefficient, -maxFlightForce, maxFlightForce) * airInfluence;
+    Vector3 liftDirection = Vector3.Cross(transform.right, airflowDirection).normalized;
+    rb.AddForce(liftDirection * liftForce, ForceMode.Force); <span class="code-note">// Apply the tunable result to the Rigidbody.</span>
+
+    float dragCoefficient = zeroLiftDragCoefficient + inducedDragFactor * liftCoefficient * liftCoefficient;
+    float currentDragForce = ApplyDrag(velocity, dragCoefficient, airInfluence);
+    UpdateTelemetry(angleOfAttackDegrees, currentAirspeed, currentForwardAirspeed, liftCoefficient, liftForce, currentDragForce);
+}</code></pre>
+            <aside class="function-notes" aria-label="Flight model design notes">
+              <div class="function-note"><b>Why use this lift calculation?</b><p><code>CalculateDynamicPressure</code>, <code>wingArea</code>, and <code>liftCoefficient</code> provide the relationships the game needs without modeling individual wing geometry. The result is compact enough to tune through exposed values such as <code>liftSlope</code> and <code>maxLiftCoefficient</code>.</p></div>
+              <div class="function-note"><b>Why soften stall behavior?</b><p>Once <code>absAngleOfAttack</code> exceeds <code>stallAngleDegrees</code>, <code>Mathf.InverseLerp</code> produces a blend from the stall angle to 90°. That blend reduces <code>liftCoefficient</code> through <code>stallLiftMultiplier</code> instead of abruptly removing lift, which keeps frequent steep turns recoverable.</p></div>
+              <div class="function-note"><b>Why use 90° as the stall endpoint?</b><p>90° is the upper bound passed to <code>Mathf.InverseLerp</code> because the bird’s forward axis is perpendicular to its velocity and airflow at that point. A larger angle means the bird is facing back relative to its travel direction; it is not “more” of the same stall condition, so the response stays capped.</p></div>
+              <div class="function-note"><b>Why assume still air?</b><p><code>airflowDirection</code> is derived directly from <code>-velocity.normalized</code>; there is no wind vector in this first model. That keeps the baseline flight behavior stable while leaving external air currents available as a future input.</p></div>
+              <div class="function-note"><b>Why use a linear lift slope?</b><p><code>liftCoefficient</code> begins as <code>liftSlope * angleOfAttackRadians</code> and is then clamped. That single tunable relationship was easier to reason about and iterate on than a full wing-shape simulation while still exposing angle of attack as the central control variable.</p></div>
+              <div class="function-note"><b>Why cap the resulting force?</b><p>The <code>Mathf.Clamp</code> around the dynamic-pressure calculation limits the final value to <code>-maxFlightForce</code> and <code>maxFlightForce</code>. That gives design a direct way to constrain acceleration and climb rate when other inputs combine to produce too much lift.</p></div>
+            </aside>
+          </article>
+          <article class="code-selector-panel" id="function-panel-water" role="tabpanel" aria-labelledby="function-tab-water" hidden>
+            <p>The camera is treated as part of the flight experience, not as a passive follow target. It anticipates velocity separately from heading so fast movement feels readable without taking manual orbit control away from the player.</p>
+            <pre class="code-proof"><code>private void LateUpdate() <span class="code-note">// Read the latest movement before positioning the camera.</span>
+{
+    float targetBlend = 1f - Mathf.Exp(-targetPositionSharpness * Time.deltaTime);
+    smoothedTargetPosition = Vector3.Lerp(smoothedTargetPosition, GetTargetPosition(), targetBlend); <span class="code-note">// Smooth position separately from orientation.</span>
+
+    float lookAheadBlend = 1f - Mathf.Exp(-lookAheadSharpness * Time.deltaTime);
+    smoothedLookAhead = Vector3.Lerp(smoothedLookAhead, GetRawVelocityLookAhead(), lookAheadBlend); <span class="code-note">// Let anticipation lead motion without snapping the view.</span>
+
+    UpdateSpeedFieldOfView();
+
+    if (!IsOrbitPaused()) <span class="code-note">// Manual orbit takes priority over automatic follow.</span>
+    {
+        Vector3 flatForward = ignoreTargetRoll ? GetFlatForward(target) : target.forward;
+        float yawBlend = 1f - Mathf.Exp(-autoYawFollowSharpness * Time.deltaTime);
+        smoothedForward = Vector3.Slerp(smoothedForward, flatForward, yawBlend).normalized; <span class="code-note">// Follow heading smoothly so physics changes do not jerk the camera.</span>
+    }
+
+    Vector3 desiredPosition = GetDesiredPosition(smoothedForward);
+    transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref positionVelocity, positionSmoothTime);
+}</code></pre>
+            <h4>Manual look and recentering</h4>
+            <pre class="code-proof"><code>Vector2 lookInput = inputReader != null ? inputReader.LookInput : Vector2.zero;
+if (lookInput.sqrMagnitude &gt; manualLookDeadZone * manualLookDeadZone) <span class="code-note">// Ignore stick noise before it can move the camera.</span>
+{
+    yawOffsetDegrees += lookInput.x * manualYawSpeed * Time.deltaTime;
+    pitchOffsetDegrees -= lookInput.y * manualPitchSpeed * Time.deltaTime;
+    recenterDelayTimer = autoRecenterDelay; <span class="code-note">// Respect active player attention before recentering.</span>
+}
+else
+{
+    recenterDelayTimer = Mathf.Max(0f, recenterDelayTimer - Time.deltaTime);
+    if (recenterDelayTimer &lt;= 0f)
+    {
+        yawOffsetDegrees = Mathf.MoveTowards(yawOffsetDegrees, 0f, autoRecenterSpeed * Time.deltaTime);
+        pitchOffsetDegrees = Mathf.MoveTowards(pitchOffsetDegrees, 0f, autoRecenterSpeed * Time.deltaTime); <span class="code-note">// Return gradually so the camera never wrestles control away.</span>
+    }
+}
+}</code></pre>
+            <aside class="function-notes" aria-label="Flight camera design notes">
+              <div class="function-note"><b>Why separate look-ahead from heading follow?</b><p><code>smoothedLookAhead</code> follows <code>GetRawVelocityLookAhead()</code>, while <code>smoothedForward</code> follows the target’s flat heading. Keeping those blends separate lets the camera anticipate movement without treating every velocity change as a turn.</p></div>
+              <div class="function-note"><b>Why delay recentering?</b><p><code>lookInput</code> updates <code>yawOffsetDegrees</code> and <code>pitchOffsetDegrees</code>, then resets <code>recenterDelayTimer</code>. Only after that timer counts down does <code>Mathf.MoveTowards</code> return the offsets to zero, so active look input is not overwritten by auto-recentering.</p></div>
+            </aside>
+          </article>
+          <article class="code-selector-panel" id="function-panel-stall" role="tabpanel" aria-labelledby="function-tab-stall" hidden>
+            <p>Stall state and pitch response are still derived from the flight conditions, including angle of attack and airspeed. This recovery torque is applied only after the bird has entered a stall giving the player a more controllable path out of the stalled attitude.</p>
+            <pre class="code-proof"><code>private void ApplyStallRecoveryTorque() <span class="code-note">// Apply a bounded attitude correction after the bird stalls.</span>
+{
+    if (waterProbe.IsInWater || !isStalled || IsGrounded() || Mathf.Approximately(stallRecoveryTorque, 0f)) return; <span class="code-note">// Let the aerodynamic stall state determine when this runs.</span>
+
+    stallRecoveryTorqueAxis = GetStallRecoveryTorqueAxis(); <span class="code-note">// Choose the torque axis from the bird’s current stalled attitude.</span>
+    if (stallRecoveryTorqueAxis.sqrMagnitude &lt; 0.0001f) return;
+
+    rb.AddTorque(stallRecoveryTorqueAxis * stallRecoveryTorque, ForceMode.Acceleration);
+}</code></pre>
+            <h4>Ground recovery</h4>
+            <pre class="code-proof"><code>if (waterProbe.IsInWater || !isGroundRecoveryActive || !IsGrounded()) return; <span class="code-note">// Ground recovery should not compete with flight or water movement.</span>
+
+Vector3 targetForward = (groundRecoveryDirection + Vector3.up * Mathf.Tan(recoveryPitchDegrees * Mathf.Deg2Rad)).normalized; <span class="code-note">// Choose a readable climb angle instead of forcing an instant snap.</span>
+Quaternion targetRotation = Quaternion.LookRotation(targetForward, Vector3.up);
+Quaternion rotationDelta = targetRotation * Quaternion.Inverse(rb.rotation);
+rotationDelta.ToAngleAxis(out float angleDegrees, out Vector3 torqueAxis);
+
+rb.AddTorque(torqueAxis.normalized * angleDegrees * Mathf.Deg2Rad * recoveryTorque, ForceMode.Acceleration); <span class="code-note">// Use physics forces so recovery still feels continuous.</span>
+rb.AddForce(Vector3.up * recoveryLiftForce, ForceMode.Acceleration);
+rb.AddForce(groundRecoveryDirection * recoveryForwardForce, ForceMode.Acceleration);</code></pre>
+            <aside class="function-notes" aria-label="Recovery system design notes">
+              <div class="function-note"><b>Why make recovery conditional?</b><p>The first guard exits when the bird is in water, is not stalled, is grounded, or has no recovery torque configured. That leaves ordinary pitch and attitude changes to the aerodynamic flight model and enables this correction only for the stalled state.</p></div>
+              <div class="function-note"><b>Why use a torque axis?</b><p><code>GetStallRecoveryTorqueAxis()</code> derives an axis from the bird’s current attitude, and <code>AddTorque</code> changes that attitude through the physics step. The bird therefore recovers by rotating out of the stalled orientation instead of snapping to a new pitch.</p></div>
+            </aside>
+          </article>
+          <article class="code-selector-panel" id="function-panel-ground" role="tabpanel" aria-labelledby="function-tab-ground" hidden>
+            <p>Uses the authored recovery direction and target pitch to give the player a reliable way out of a grounded collision.</p>
+            <pre class="code-proof"><code>private void ApplyGroundRecovery()
+{
+    if (waterProbe.IsInWater
+        || !isGroundRecoveryActive
+        || !IsGrounded()) return;
+
+    Vector3 targetForward = (
+        groundRecoveryDirection
+        + Vector3.up * Mathf.Tan(
+            recoveryPitchDegrees * Mathf.Deg2Rad)).normalized;
+    Quaternion targetRotation = Quaternion.LookRotation(
+        targetForward, Vector3.up);
+    Quaternion rotationDelta =
+        targetRotation * Quaternion.Inverse(rb.rotation);
+    rotationDelta.ToAngleAxis(
+        out float angleDegrees, out Vector3 torqueAxis);
+
+    if (angleDegrees &gt; 180f) angleDegrees -= 360f;
+    if (torqueAxis.sqrMagnitude &gt; 0.0001f
+        &amp;&amp; !Mathf.Approximately(recoveryTorque, 0f))
+    {
+        rb.AddTorque(
+            torqueAxis.normalized * angleDegrees
+            * Mathf.Deg2Rad * recoveryTorque,
+            ForceMode.Acceleration);
+    }
+
+    rb.AddForce(Vector3.up * recoveryLiftForce,
+        ForceMode.Acceleration);
+    rb.AddForce(groundRecoveryDirection * recoveryForwardForce,
+        ForceMode.Acceleration);
+}</code></pre>
+          </article>
+        </div>
+      </div>
+
+      <div class="code-selector" data-code-selector="legacy">
+        <div class="code-selector-nav" role="tablist" aria-label="Flight implementation code examples" aria-orientation="vertical">
+          <button class="code-selector-item is-active" type="button" role="tab" aria-selected="true" aria-controls="code-panel-aero" id="code-tab-aero" tabindex="0">
+            <b>Aerodynamic forces</b>
+            <small>Lift, stall, and drag</small>
+          </button>
+          <button class="code-selector-item" type="button" role="tab" aria-selected="false" aria-controls="code-panel-alignment" id="code-tab-alignment" tabindex="-1">
+            <b>Player alignment</b>
+            <small>Reducing rigidbody sideslip</small>
+          </button>
+          <button class="code-selector-item" type="button" role="tab" aria-selected="false" aria-controls="code-panel-camera" id="code-tab-camera" tabindex="-1">
+            <b>Flight camera</b>
+            <small>Velocity-aware smoothing</small>
+          </button>
+          <button class="code-selector-item" type="button" role="tab" aria-selected="false" aria-controls="code-panel-tutorial" id="code-tab-tutorial" tabindex="-1">
+            <b>Onboarding</b>
+            <small>Action-gated tutorial</small>
+          </button>
+        </div>
+
+        <div class="code-selector-display">
+          <article class="code-selector-panel" id="code-panel-aero" role="tabpanel" aria-labelledby="code-tab-aero">
+            <div class="code-selector-heading">
+              <h3>Aerodynamic lift, stall, and drag</h3>
+              <small><code>BirdManager.cs</code> · <code>ApplyAerodynamicForces</code> · lines 672–699</small>
+            </div>
+            <p>A tunable arcade flight model using angle of attack, lift, stall softening, and induced drag. The system derives lift from the bird’s orientation and velocity, then progressively softens lift beyond the stall angle instead of switching it off abruptly.</p>
+            <pre class="code-proof"><code>float currentAngleOfAttackDegrees =
+    Vector3.SignedAngle(transform.forward, velocity.normalized, transform.right);
+
+float angleOfAttackRadians = currentAngleOfAttackDegrees * Mathf.Deg2Rad;
+float currentLiftCoefficient =
+    Mathf.Clamp(liftSlope * angleOfAttackRadians,
+                -maxLiftCoefficient, maxLiftCoefficient);
+
+float absAoA = Mathf.Abs(currentAngleOfAttackDegrees);
+UpdateStallState(absAoA, currentForwardAirspeed, effectiveLiftAirspeed);
+
+if (absAoA &gt; stallAngleDegrees)
+{
+    float stallBlend = Mathf.InverseLerp(stallAngleDegrees, 90f, absAoA);
+    currentLiftCoefficient *= Mathf.Lerp(1f, stallLiftMultiplier, stallBlend);
+}
+
+float currentLiftForce =
+    Mathf.Clamp(CalculateDynamicPressure(effectiveLiftAirspeed)
+        * wingArea * currentLiftCoefficient,
+        -maxFlightForce, maxFlightForce) * airInfluence;
+
+rb.AddForce(liftDirection * currentLiftForce, ForceMode.Force);
+
+float dragCoefficient = zeroLiftDragCoefficient
+    + inducedDragFactor * currentLiftCoefficient * currentLiftCoefficient;</code></pre>
+          </article>
+
+          <article class="code-selector-panel" id="code-panel-alignment" role="tabpanel" aria-labelledby="code-tab-alignment" hidden>
+            <div class="code-selector-heading">
+              <h3>Reducing rigidbody sideslip</h3>
+              <small><code>BirdManager.cs</code> · <code>ApplyVelocityForwardAlignment</code> · lines 590–613</small>
+            </div>
+            <p>The raw rigidbody could rotate faster than its velocity direction, making the bird slide through turns. This correction preserves horizontal speed while gradually redirecting movement toward the bird’s heading.</p>
+            <pre class="code-proof"><code>Vector3 horizontalVelocity =
+    Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up);
+Vector3 horizontalForward =
+    Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+
+if (horizontalVelocity.sqrMagnitude &lt;= 0.0001f
+    || horizontalForward.sqrMagnitude &lt;= 0.0001f)
+{
+    return;
+}
+
+Vector3 targetVelocity =
+    horizontalForward.normalized * horizontalVelocity.magnitude;
+
+float alignmentBlend = 1f - Mathf.Exp(
+    -yawOrientationImpactOnVelocity
+    * airInfluence * Time.fixedDeltaTime);
+
+Vector3 velocityChange =
+    (targetVelocity - horizontalVelocity) * alignmentBlend;
+rb.AddForce(velocityChange, ForceMode.VelocityChange);</code></pre>
+          </article>
+
+          <article class="code-selector-panel" id="code-panel-camera" role="tabpanel" aria-labelledby="code-tab-camera" hidden>
+            <div class="code-selector-heading">
+              <h3>Velocity-aware flight camera</h3>
+              <small><code>BirdCameraManager.cs</code> · <code>LateUpdate</code> · lines 139–172</small>
+            </div>
+            <p>The camera smooths velocity look-ahead separately from heading follow, allowing it to anticipate fast movement without making the player’s manual orbit feel disconnected.</p>
+            <pre class="code-proof"><code>float targetBlend =
+    1f - Mathf.Exp(-targetPositionSharpness * Time.deltaTime);
+smoothedTargetPosition = Vector3.Lerp(
+    smoothedTargetPosition, GetTargetPosition(), targetBlend);
+
+float lookAheadBlend =
+    1f - Mathf.Exp(-lookAheadSharpness * Time.deltaTime);
+smoothedLookAhead = Vector3.Lerp(
+    smoothedLookAhead, GetRawVelocityLookAhead(), lookAheadBlend);
+
+UpdateSpeedFieldOfView();
+
+if (!IsOrbitPaused())
+{
+    Vector3 flatForward = ignoreTargetRoll
+        ? GetFlatForward(target) : target.forward;
+    float yawBlend = 1f - Mathf.Exp(
+        -autoYawFollowSharpness * Time.deltaTime);
+    smoothedForward = Vector3.Slerp(
+        smoothedForward, flatForward, yawBlend).normalized;
+}</code></pre>
+          </article>
+
+          <article class="code-selector-panel" id="code-panel-tutorial" role="tabpanel" aria-labelledby="code-tab-tutorial" hidden>
+            <div class="code-selector-heading">
+              <h3>Action-gated tutorial progression</h3>
+              <small><code>TutorialManager.cs</code> · <code>ShowAndWaitForStep</code> · lines 107–126</small>
+            </div>
+            <p>After testing showed that players ignored controls information in the pause menu, I changed the tutorial to wait for the action being taught. Each step remains visible long enough to read and then waits for the configured input.</p>
+            <pre class="code-proof"><code>private IEnumerator ShowAndWaitForStep(TutorialStepSO step)
+{
+    SetTutorialStepImages(step);
+    SubscribeToInput(step.InputAction);
+
+    yield return FadeTutorialStep(true);
+
+    float elapsed = 0f;
+    while (elapsed &lt; minimumStepDuration)
+    {
+        elapsed += Time.unscaledDeltaTime;
+        yield return null;
+    }
+
+    while (!inputDetected)
+    {
+        yield return null;
+    }
+
+    UnsubscribeFromInput();
+}</code></pre>
+          </article>
+        </div>
+      </div>
+
+      <!-- Legacy disclosure cards retained below while the vertical selector is reviewed. -->
+      <div class="code-evidence-grid">
+        <details class="code-evidence-card">
+          <summary>
+            <span class="code-evidence-title">Aerodynamic lift, stall, and drag<small>BirdManager.cs · ApplyAerodynamicForces · lines 672–699</small></span>
+            <span class="code-evidence-summary">A tunable arcade flight model using angle of attack, lift, stall softening, and induced drag.</span>
+          </summary>
+          <div class="code-evidence-body">
+            <p>The system derives lift from the bird’s orientation and velocity, then progressively softens lift beyond the stall angle instead of switching it off abruptly. That keeps the model grounded in aerodynamic concepts while leaving room for player-facing tuning.</p>
+            <pre class="code-proof"><code>float currentAngleOfAttackDegrees =
+    Vector3.SignedAngle(transform.forward, velocity.normalized, transform.right);
+
+float angleOfAttackRadians = currentAngleOfAttackDegrees * Mathf.Deg2Rad;
+float currentLiftCoefficient =
+    Mathf.Clamp(liftSlope * angleOfAttackRadians,
+                -maxLiftCoefficient, maxLiftCoefficient);
+
+float absAoA = Mathf.Abs(currentAngleOfAttackDegrees);
+UpdateStallState(absAoA, currentForwardAirspeed, effectiveLiftAirspeed);
+
+if (absAoA &gt; stallAngleDegrees)
+{
+    float stallBlend = Mathf.InverseLerp(stallAngleDegrees, 90f, absAoA);
+    currentLiftCoefficient *= Mathf.Lerp(1f, stallLiftMultiplier, stallBlend);
+}
+
+float currentLiftForce =
+    Mathf.Clamp(CalculateDynamicPressure(effectiveLiftAirspeed)
+        * wingArea * currentLiftCoefficient,
+        -maxFlightForce, maxFlightForce) * airInfluence;
+
+rb.AddForce(liftDirection * currentLiftForce, ForceMode.Force);
+
+float dragCoefficient = zeroLiftDragCoefficient
+    + inducedDragFactor * currentLiftCoefficient * currentLiftCoefficient;</code></pre>
+          </div>
+        </details>
+
+        <details class="code-evidence-card">
+          <summary>
+            <span class="code-evidence-title">Reducing rigidbody sideslip<small>BirdManager.cs · ApplyVelocityForwardAlignment · lines 590–613</small></span>
+            <span class="code-evidence-summary">A player-feel correction that preserves speed while gradually redirecting horizontal velocity toward the bird’s heading.</span>
+          </summary>
+          <div class="code-evidence-body">
+            <p>The raw rigidbody could rotate faster than its velocity direction, making the bird slide through turns. This correction preserves horizontal speed but makes high-speed steering more readable.</p>
+            <pre class="code-proof"><code>Vector3 horizontalVelocity =
+    Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up);
+Vector3 horizontalForward =
+    Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+
+if (horizontalVelocity.sqrMagnitude &lt;= 0.0001f
+    || horizontalForward.sqrMagnitude &lt;= 0.0001f)
+{
+    return;
+}
+
+Vector3 targetVelocity =
+    horizontalForward.normalized * horizontalVelocity.magnitude;
+
+float alignmentBlend = 1f - Mathf.Exp(
+    -yawOrientationImpactOnVelocity
+    * airInfluence * Time.fixedDeltaTime);
+
+Vector3 velocityChange =
+    (targetVelocity - horizontalVelocity) * alignmentBlend;
+rb.AddForce(velocityChange, ForceMode.VelocityChange);</code></pre>
+          </div>
+        </details>
+
+        <details class="code-evidence-card">
+          <summary>
+            <span class="code-evidence-title">Velocity-aware flight camera<small>BirdCameraManager.cs · LateUpdate · lines 139–172</small></span>
+            <span class="code-evidence-summary">Layered smoothing for velocity anticipation, heading follow, manual orbit, position, and rotation.</span>
+          </summary>
+          <div class="code-evidence-body">
+            <p>The camera updates after physics-driven bird movement, smooths velocity look-ahead separately from heading follow, and uses frame-rate-independent exponential blend factors to keep the response consistent.</p>
+            <pre class="code-proof"><code>float targetBlend =
+    1f - Mathf.Exp(-targetPositionSharpness * Time.deltaTime);
+smoothedTargetPosition = Vector3.Lerp(
+    smoothedTargetPosition, GetTargetPosition(), targetBlend);
+
+float lookAheadBlend =
+    1f - Mathf.Exp(-lookAheadSharpness * Time.deltaTime);
+smoothedLookAhead = Vector3.Lerp(
+    smoothedLookAhead, GetRawVelocityLookAhead(), lookAheadBlend);
+
+UpdateSpeedFieldOfView();
+
+if (!IsOrbitPaused())
+{
+    Vector3 flatForward = ignoreTargetRoll
+        ? GetFlatForward(target) : target.forward;
+    float yawBlend = 1f - Mathf.Exp(
+        -autoYawFollowSharpness * Time.deltaTime);
+    smoothedForward = Vector3.Slerp(
+        smoothedForward, flatForward, yawBlend).normalized;
+}</code></pre>
+          </div>
+        </details>
+
+        <details class="code-evidence-card">
+          <summary>
+            <span class="code-evidence-title">Action-gated tutorial progression<small>TutorialManager.cs · ShowAndWaitForStep · lines 107–126</small></span>
+            <span class="code-evidence-summary">A data-driven tutorial step that waits for both a minimum display time and the player’s configured input.</span>
+          </summary>
+          <div class="code-evidence-body">
+            <p>After testing showed that players ignored controls information in the pause menu, I changed the tutorial to wait for the action being taught. Each step subscribes to its input, waits for the prompt to be visible, and cleans up before the next step.</p>
+            <pre class="code-proof"><code>private IEnumerator ShowAndWaitForStep(TutorialStepSO step)
+{
+    SetTutorialStepImages(step);
+    SubscribeToInput(step.InputAction);
+
+    yield return FadeTutorialStep(true);
+
+    float elapsed = 0f;
+    while (elapsed &lt; minimumStepDuration)
+    {
+        elapsed += Time.unscaledDeltaTime;
+        yield return null;
+    }
+
+    while (!inputDetected)
+    {
+        yield return null;
+    }
+
+    UnsubscribeFromInput();
+}</code></pre>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="steam-cta" aria-label="P.U.F.F.-N. Steam page">
+      <a href="https://store.steampowered.com/app/5449430/PUFFN_ProtoUtility_Flying_ForagerNavigator/" target="_blank" rel="noopener noreferrer">View P.U.F.F.-N. on Steam &rarr;</a>
+    </section>
+
+  </main>
+  <script>
+    (() => {
+      const tabRoot = document.querySelector('[data-flight-tabs]');
+      if (!tabRoot) return;
+
+      const tabs = [...tabRoot.querySelectorAll('[role="tab"]')];
+      const panels = [...tabRoot.querySelectorAll('[role="tabpanel"]')];
+
+      const activateTab = (tab) => {
+        tabs.forEach((item) => {
+          const active = item === tab;
+          item.setAttribute('aria-selected', String(active));
+          item.tabIndex = active ? 0 : -1;
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.id !== tab.getAttribute('aria-controls');
+        });
+      };
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => activateTab(tab));
+        tab.addEventListener('keydown', (event) => {
+          if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+          event.preventDefault();
+          const direction = event.key === 'ArrowRight' ? 1 : -1;
+          const nextTab = tabs[(index + direction + tabs.length) % tabs.length];
+          activateTab(nextTab);
+          nextTab.focus();
+        });
+      });
+    })();
+
+    (() => {
+      const selector = document.querySelector('[data-code-selector]');
+      if (!selector) return;
+
+      const items = [...selector.querySelectorAll('[role="tab"]')];
+      const panels = [...selector.querySelectorAll('[role="tabpanel"]')];
+
+      const activate = (item) => {
+        items.forEach((entry) => {
+          const active = entry === item;
+          entry.classList.toggle('is-active', active);
+          entry.setAttribute('aria-selected', String(active));
+          entry.tabIndex = active ? 0 : -1;
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.id !== item.getAttribute('aria-controls');
+        });
+      };
+
+      items.forEach((item, index) => {
+        item.addEventListener('click', () => activate(item));
+        item.addEventListener('keydown', (event) => {
+          if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+          event.preventDefault();
+          const direction = event.key === 'ArrowDown' ? 1 : -1;
+          const nextItem = items[(index + direction + items.length) % items.length];
+          activate(nextItem);
+          nextItem.focus();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

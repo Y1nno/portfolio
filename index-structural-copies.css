@@ -353,7 +353,7 @@
 }
 
 .home-page .selector-frame {
-  --project-bg: url("project-backgrounds/01.png");
+  --project-bg: url("resources/snowmageddon/snowmageddon-static.jpg");
   margin-top: 18px;
   min-height: 480px;
   display: grid;

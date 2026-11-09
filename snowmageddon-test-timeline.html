@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snowmageddon Test - Timeline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="project.css">
+  <style>
+    .prototype-note { margin-top: 20px; color: var(--muted); font-size: 0.92rem; }
+    .timeline { margin-top: 34px; border-left: 1px solid var(--border); }
+    .timeline-item { position: relative; padding: 0 0 52px 28px; }
+    .timeline-item::before { content: ""; position: absolute; left: -4px; top: 5px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-strong); }
+    .timeline-label { margin: 0 0 14px; color: var(--muted); font-size: 1.05rem; font-weight: 700; line-height: 1.35; }
+    .timeline-label span { color: var(--text); }
+    .timeline-card { padding: 0 0 2px; }
+    .timeline-card p { max-width: 78ch; }
+    .two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .mini-panel { padding: 0; }
+    .mini-panel b { color: var(--text); }
+    .mini-panel p { margin: 8px 0 0; font-size: 0.92rem; }
+    .code-proof { border-radius: 4px; background: #101010; }
+    .code-compare {
+      margin: 28px 0 4px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .code-compare-header {
+      max-width: 78ch;
+      margin-bottom: 18px;
+    }
+    .code-compare-header h4 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+    .code-compare-header p {
+      margin: 0;
+      font-size: 0.92rem;
+    }
+    .code-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+    .code-column h5 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .code-column p {
+      min-height: 64px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+    }
+    .annotated-code {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 26px;
+      margin: 28px 0 4px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      align-items: start;
+    }
+    .annotation-list {
+      display: grid;
+      gap: 18px;
+    }
+    .annotation {
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .annotation:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+    .annotation b {
+      color: var(--text);
+    }
+    .annotation p {
+      margin: 7px 0 0;
+      font-size: 0.9rem;
+    }
+    .mark {
+      color: var(--accent-strong);
+      font-weight: 700;
+    }
+    .detail-grid { grid-template-columns: 1fr; gap: 22px; margin-top: 22px; border-top: 1px solid var(--border); }
+    .detail-grid div { min-height: auto; padding: 20px 0 0; border: 0; border-radius: 0; background: none; }
+    @media (max-width: 1100px) { .code-columns, .code-annotations, .annotated-code { grid-template-columns: 1fr; } .code-column p { min-height: auto; } }
+    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } .timeline { border-left: 0; } .timeline-item { padding-left: 0; } .timeline-item::before { display: none; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="project-hero">
+      <div class="project-intro">
+        <div class="page-title">
+          <a class="back" href="snowmageddon.html">&larr; Back to current page</a>
+          <h1>Snowmageddon: Decision Timeline</h1>
+          <p class="role">Test layout - a process-first case study that walks through the evolution of the work.</p>
+          <p class="prototype-note">Selected direction: process-first timeline with restrained surfaces and less decorative glass.</p>
+        </div>
+        <div class="summary">
+          <p>This version makes the page feel like a guided build log. Instead of asking the reader to absorb one long explanation, it breaks the work into moments: what I inherited, why the visual redesign came first, what I changed in the first pass, what I learned from the input system, and what I would improve with more time.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Super Roll Process</h2>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-label">1. Entry point: <span>The old version fit the timeline it was built for.</span></div>
+            <p>The existing Super Roll was playable, and I did not see it as "bad code." It was written quickly for a shorter jam-style development horizon, where the goal was to get a working ability into the game. My job was not to judge that context; it was to understand it and improve the feature without pretending the old version had the same goals as the new pass.</p>
+            <p>The redesign started from a visual and player-facing problem. The snowball grew beside the player during charge-up, which made the ability feel less like a physical snowball fantasy. A bowling-style roll gave the ability a clearer identity: aim, release, roll, grow, impact.</p>
+            <div class="two-col">
+              <div class="mini-panel"><b>What I respected</b><p>The old implementation was solving a two-week problem: make the ability work and be playable.</p></div>
+              <div class="mini-panel"><b>What I changed</b><p>The visual grammar first, then the code architecture once I saw the opportunity.</p></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-label">2. Codebase fit: <span>The visual change opened a code cleanup path.</span></div>
+            <p>Once I started translating the new bowling-ball direction into code, I saw that Super Roll did not need to keep living as a player-controller-managed charge feature. <code>PlayerController</code> was already a large script with movement, camera, throwing, dash, upgrades, health, menus, water respawn, and ability logic. This was a good moment to avoid adding more long-term weight to it.</p>
+            <p>The point was not to rewrite the whole controller. That would have been too much for the task and disruptive for the other developers. The better rule was: stay consistent with the existing ability style, but move ownership where it was obvious and practical. The player should initiate the ability; the snowball should own snowball behavior.</p>
+<pre class="code-proof"><code>// The old shape mixed input checks, aiming, object placement, and charge state.
+if (superRoll.action.IsPressed() &amp;&amp; !isCharging)
+{
+    isCharging = true;
+    newGiantSnowball = Instantiate(giantSnowball);
+    rollChargeCoroutine = StartCoroutine(SuperRollCharge());
+}</code></pre>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-label">3. Iteration: <span>The first pass removed the old charge model.</span></div>
+            <p>The first implementation pass changed the feature from "hold a growing snowball beside the player" toward "aim, release, and roll." I removed the old player-owned charge/growth function, moved giant snowball growth out of <code>PlayerController</code>, and started making <code>CheckForSuperRoll()</code> lighter with early-return flow instead of the old branching charge sequence.</p>
+            <p>That first pass was intentionally not the final architecture. It made the feature closer to the new design, but it still left the controller checking Super Roll from the regular update path. At that point, the next improvement became clear: the input shape should become event-bound.</p>
+            <div class="two-col">
+              <div class="mini-panel"><b>Good first move</b><p>Remove the charge/growth function and stop making the controller micromanage snowball size.</p></div>
+              <div class="mini-panel"><b>Remaining issue</b><p><code>CheckForSuperRoll()</code> was still shaped like something that wanted to be asked about every frame.</p></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-label">4. Runtime cleanup: <span>Super Roll became event-started instead of constantly checked.</span></div>
+            <p>The part I am proudest of is pulling the ability out of the update loop. The raw performance impact is small, but the principle matters: code should run when it has a reason to run. Super Roll is a press/release ability, so input callbacks were a cleaner fit than repeatedly asking about it during ordinary gameplay frames.</p>
+            <p>The controller now reacts when Super Roll input is performed, enters a scoped aiming state, and releases the ability when the input is canceled. The player controller remains the right place to answer "can this player start the ability?" and "which direction are they aiming?" It is not the right place to keep owning the snowball after launch.</p>
+            <div class="code-compare">
+              <div class="code-compare-header">
+                <h4>Code Lens: from checked-every-frame to event-started</h4>
+                <p>The key change is not more code. It is code that runs at the right moment, with the controller initiating the ability and the spawned snowball owning active behavior.</p>
+              </div>
+              <div class="code-columns">
+                <div class="code-column">
+                  <h5>Before: controller-owned check</h5>
+                  <p>Input checks, charge state, object references, release handling, UI state, and cleanup all lived inside the controller's Super Roll check.</p>
+<pre class="code-proof"><code>private void CheckForSuperRoll()
+{
+    <span class="mark">if (superRoll.action.IsPressed() &amp;&amp; !isCharging</span>
+        <span class="mark">&amp;&amp; GetCurrentSnowballs() &gt;= 10)</span>
+    {
+        isThrowing = false;
+        isCharging = true;
+
+        newGiantSnowball = Instantiate(giantSnowball);
+        newGiantSnowball.transform.position = rollPoint.position;
+
+        rollChargeCoroutine = StartCoroutine(SuperRollCharge());
+        chargeArrow.gameObject.SetActive(true);
+    }
+    <span class="mark">else if (superRoll.action.WasReleasedThisFrame()</span>
+        <span class="mark">&amp;&amp; newGiantSnowball != null)</span>
+    {
+        StopCoroutine(rollChargeCoroutine);
+        isCharging = false;
+
+        Vector3 rollDir = CalculateThrowDirection(rollPoint.position, true);
+        rollDir.y = 0f;
+        newGiantSnowball.Roll(rollDir, rollForce, 2f);
+
+        ChangeCurrentSnowballs(-rollCost);
+        newGiantSnowball = null;
+    }
+}</code></pre>
+                </div>
+                <div class="code-column">
+                  <h5>After: input events start and resolve</h5>
+                  <p>The controller subscribes to the input lifecycle, validates the start, guards invalid release, and hands the active roll to <code>GiantSnowball</code>.</p>
+<pre class="code-proof"><code>private void OnEnable()
+{
+    <span class="mark">superRoll.action.performed += StartAimingSuperRoll;</span>
+    <span class="mark">superRoll.action.canceled += StopAimingSuperRoll;</span>
+}
+
+private void StartAimingSuperRoll(InputAction.CallbackContext context)
+{
+    <span class="mark">if (isAimingSuperRoll || GetCurrentSnowballs() &lt; rollCost) return;</span>
+
+    isThrowing = false;
+    isAimingSuperRoll = true;
+    StartCoroutine(AimArrow());
+}
+
+private void StopAimingSuperRoll(InputAction.CallbackContext context)
+{
+    <span class="mark">if (!isAimingSuperRoll) return;</span>
+    isAimingSuperRoll = false;
+
+    GiantSnowball newGiantSnowball = Instantiate(giantSnowball);
+    newGiantSnowball.transform.position = rollPoint.position;
+
+    Vector3 rollDir = CalculateThrowDirection(rollPoint.position, true);
+    rollDir.y = 0f;
+
+    <span class="mark">newGiantSnowball.Roll(rollDir, rollForce);</span>
+    ChangeCurrentSnowballs(-rollCost);
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-label">5. Ownership: <span>The snowball owns the parts that are naturally snowball behavior.</span></div>
+            <p>I did not try to move everything out of <code>PlayerController</code> just because I could. I wanted the code to stay recognizable to the rest of the team and consistent with the project's other abilities. The split I used was practical: the controller owns input, aiming, spawning, and cost; <code>GiantSnowball</code> owns rolling, growth, collision, impact, and lifetime.</p>
+            <p>That gave the object a clearer lifecycle without over-engineering the feature. The snowball initializes its Rigidbody, maintains its rolling motion while alive, grows from <code>minSize</code> to <code>maxSize</code> over <code>rollTime</code>, uses an <code>AnimationCurve</code> for tunable growth feel, spawns its impact effect, and destroys itself.</p>
+            <div class="annotated-code">
+              <div>
+                <h4>Code Lens: object-owned snowball lifecycle</h4>
+                <p>The comparison above shows the controller refactor. This annotated excerpt shows what the snowball owns after launch.</p>
+<pre class="code-proof"><code>[RequireComponent(typeof(Rigidbody))]
+public class GiantSnowball : Snowball
+{
+    [SerializeField] private float minSize = 0.5f;
+    [SerializeField] private float maxSize = 3f;
+    [SerializeField] private float rollTime = 2f;
+    <span class="mark">[SerializeField] private AnimationCurve scaleOverRollTime;</span>
+
+    void Awake()
+    {
+        <span class="mark">rb = GetComponent&lt;Rigidbody&gt;();</span>
+    }
+
+    public void Roll(Vector3 rollDir, float rollForce)
+    {
+        rb.linearVelocity = rollDir * rollForce;
+        <span class="mark">StartCoroutine(ExecuteRoll(rollDir, rollForce));</span>
+    }
+
+    private IEnumerator ExecuteRoll(Vector3 rollDir, float rollForce)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime &lt; rollTime)
+        {
+            rb.linearVelocity = rollDir * rollForce;
+            elapsedTime += Time.deltaTime;
+
+            float rollRatio = Mathf.Clamp01(elapsedTime / rollTime);
+            float newSize = Mathf.Lerp(minSize, maxSize, scaleOverRollTime.Evaluate(rollRatio));
+            <span class="mark">transform.localScale = Vector3.one * newSize;</span>
+
+            yield return null;
+        }
+
+        Instantiate(impact, transform.position, transform.rotation);
+        Destroy(gameObject);
+    }
+}</code></pre>
+              </div>
+              <aside class="annotation-list" aria-label="GiantSnowball code annotations">
+                <div class="annotation">
+                  <b>1. Tuning lives with the object</b>
+                  <p>The growth curve and size range belong to the snowball, so tuning the feel does not push logic back into the controller.</p>
+                </div>
+                <div class="annotation">
+                  <b>2. Lifecycle setup is explicit</b>
+                  <p>The Rigidbody is fetched in <code>Awake()</code> because the object is instantiated and rolled immediately.</p>
+                </div>
+                <div class="annotation">
+                  <b>3. The coroutine fits the behavior</b>
+                  <p>The snowball has a short linear life: roll, grow, impact, destroy. The coroutine keeps that sequence together.</p>
+                </div>
+              </aside>
+            </div>
+            <div class="two-col">
+              <div class="mini-panel"><b>Tunable feel</b><p>Serialized size, roll time, and animation curve keep feel iteration in the Inspector.</p></div>
+              <div class="mini-panel"><b>Scoped work</b><p>The snowball updates while it exists, then destroys itself at the end of its sequence.</p></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-label">6. Learning: <span>The hardest part was understanding the input callbacks.</span></div>
+            <p>The most difficult part was not the snowball motion; it was learning the practical difference between input events like <code>started</code>, <code>performed</code>, and <code>canceled</code>. I initially explored <code>started</code> and <code>canceled</code>, but <code>performed</code> better matched the committed press for this button behavior.</p>
+            <p>That learning fixed a real edge case: the player could hold the input while under the roll cost, reload enough snowballs while still holding, then release into an ability that should never have started. The final version begins only from a valid performed press and guards <code>StopAimingSuperRoll()</code> so an invalid aim session cannot resolve into a spawned giant snowball.</p>
+            <p>I also moved Rigidbody setup into <code>Awake()</code> because the player controller instantiates the object and immediately calls <code>Roll()</code>. That avoids depending on whether <code>Start()</code> has run before the object is used.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-label">7. Future work: <span>The refactor improved one feature without pretending to solve the whole controller.</span></div>
+            <p>If I had more time, I would do a stronger top-to-bottom pass on <code>PlayerController</code> and reassess whether more ability logic belongs somewhere else. For this task, that would have been too much wheel-reinvention for the schedule. The better choice was to make the touched feature cleaner while keeping the surrounding codebase familiar.</p>
+            <div class="two-col">
+              <div class="mini-panel"><b>What this shows</b><p>I can improve game feel and architecture together while working inside an existing team codebase.</p></div>
+              <div class="mini-panel"><b>What it does not claim</b><p>This is not a full player-controller rewrite; it is a focused refactor with practical scope control.</p></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Supporting Timeline</h2>
+      <p>The same structure can continue below Super Roll with shorter process timelines for the other systems.</p>
+      <div class="detail-grid">
+        <div>
+          <dt>Pickups</dt>
+          <dd>Coins were already collectible. I generalized the system into <code>PickupManager</code>, moved tuning into <code>PickupSO</code>, and added Normal, AlwaysAttract, and Instant collection modes for shop opening.</dd>
+        </div>
+        <div>
+          <dt>Shop spawning</dt>
+          <dd>The shop originally spawned centrally. I used authored spawn transforms because the game needed reliable placement across a terrain-heavy map more than procedural spawn cleverness.</dd>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

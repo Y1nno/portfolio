@@ -5,7 +5,8 @@ The root of this repository now contains the official public portfolio build for
 Current public contents:
 
 - Homepage with the full project selector
-- Mario World 1-1 in Unreal project page
+- Snowmageddon project page
+- Mario World 1-1 in Unreal archived project page
 - Shared CSS and JavaScript
 - Public resume PDF
 - Project background assets

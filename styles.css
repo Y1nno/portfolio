@@ -99,6 +99,10 @@ header {
   text-shadow: 0 0 22px rgb(85 0 0 / 35%);
 }
 
+.brand a {
+  color: inherit;
+}
+
 .brand span {
   display: block;
   font-weight: 500;

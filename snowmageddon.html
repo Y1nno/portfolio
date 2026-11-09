@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Snowmageddon project page: Unity/C# gameplay programming work on Super Roll, data-driven pickups, and shop spawning." />
+  <title>Snowmageddon - Wesley Parrish</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="project.css">
+  <script src="background-shader.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand"><a href="index.html">Wesley Parrish</a><span>Gameplay, Simulation, and Systems Programmer</span></div>
+      <nav class="nav-menu">
+        <div class="nav-dropdown">
+          <a href="index.html#projects">Projects</a>
+          <div class="nav-dropdown-menu" aria-label="Project pages">
+            <a href="snowmageddon.html">Snowmageddon</a>
+            <a href="puffn.html">P.U.F.F.-N.</a>
+          </div>
+        </div>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="WPARRISH.pdf">Resume</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    <section class="project-hero">
+      <div class="project-intro">
+        <div class="page-title">
+          <a class="back" href="index.html#projects">&larr; Back to Projects</a>
+          <h1>Snowmageddon</h1>
+          <p class="role">Gameplay Programmer / Co-Developer</p>
+        </div>
+        <div class="summary">
+          <p>Snowmageddon is an in-development Unity/C# arcade combat game from Tiny Cowboy where you play as an evil Snowman wreaking havoc against the kids who made you. Originally a submission for a game Jam, the positive feedback that the team recieved drove development towards a full release. I joined an existing project halfway through development as a co-developer to help the project ship by it's target release in December. During my time on the project, I have contributed with the project's scripting, Unity implementation, bug fixes, polish, and gameplay system improvements.</p>
+          <p>I'll walk through three changes I made to Snowmageddon: reworking Super Roll, changing how pickups are collected, and moving the shop closer to the player. For each one, I'll explain the problem I started with and what led me to the solution I chose.</p>
+        </div>
+      </div>
+      <aside aria-label="Project facts">
+        <dl>
+          <div><dt>Status</dt><dd>In development</dd></div>
+          <div><dt>Team</dt><dd>Tiny Cowboy</dd></div>
+          <div><dt>Tech</dt><dd>Unity / C#</dd></div>
+          <div><dt>Focus</dt><dd>Gameplay systems, refactoring, implementation polish</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <div class="case-study-section system-deep-dives work-details">
+      <details class="system-card">
+        <summary><h2 class="system-tab-title">Super Roll Refactor</h2></summary>
+        <div class="system-card-body">
+          <div class="case-study-intro">
+            <p>The changes I made to the player's Super Roll ability are the ones I like making for all of my projects: a player facing improvement that also leaves the a little bit codebase cleaner. The ability already worked, but the team felt that the visual presentation could be improved. The task I was assigned to was to change an awkward charge-up and release process into an immediate release of a bowling ball style snowball.</p>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-item">
+              <div class="timeline-card">
+                <div class="timeline-label">1. Entry point: <span>Code from the Jam.</span></div>
+                <p>The existing Super Roll implementation came from the game jam version of the project,the speed and constraints of development was prioritized over maintainability and code elegance.</p>
+                <p>The visual style of the Super Roll was also the product of the game jam constraints. During charge-up, the giant snowball grew beside the player while an arrow on the ground indicated the direction of the roll. This setup was functional but visually cluttered and less intuitive for players.</p>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-card">
+                <div class="timeline-label">2. Codebase: <span>Refactoring opportunity.</span></div>
+                <p>Once I started translating the new bowling-ball direction into code, I saw that Super Roll did not need to remain a controller-managed charge feature. <code>PlayerController</code> was already responsible for a lot: movement, camera, throwing, dash, upgrades, health, menus, respawning, and ability logic. This was a good chance to avoid adding more responsibilities to an already broad class.</p>
+                <p>If I was building this game from the ground up, I likely would have structured things differently from the start, perhaps making a dedicated component for ability management or one specifically for the Super Roll ability. However, because there was an existing codebase with established patterns, I chose the most conservative approach that still could maximize clarity: keep input, aiming, spawning, and resource cost in <code>PlayerController</code> so the feature stayed recognizable beside the project's other abilities; move rolling, growth, collision, impact, and lifetime into <code>GiantSnowball</code>, where that behavior naturally belongs.</p>
+
+                <div class="annotated-code">
+                  <div class="annotated-code-header">
+                    <h4>Code</h4>
+                    <p>What were the things that jumped out to me?</p>
+                  </div>
+                  <div class="annotated-code-body">
+                    <div>
+<pre class="code-proof"><code>void Update() <span class="code-note">// 1</span>
+{
+    if (!isInMenu &amp;&amp; isAlive &amp;&amp; !isPosing)
+    {
+        ForceCheckDisableAbilities();
+        CastLookatTarget();
+        HandleSnowstormCasting();
+        CheckForDash();
+        UpdateDashStamina();
+
+        <span class="mark">CheckForSuperRoll();</span>
+
+        HandleMoveAndRotate();
+        HandleInteract();
+
+        <span class="mark">if (!isCharging) { CheckForThrow(); }</span> <span class="code-note">// 2</span>
+
+        CheckSnowballReload();
+    }
+    else if (isInMenu)
+    {
+        ResetFlags();
+    }
+}</code></pre>
+<pre class="code-proof"><code>private GiantSnowball newGiantSnowball; <span class="code-note">// 3</span>
+[SerializeField] private RectTransform chargeArrow;
+
+[SerializeField] private float rollForce = 30f;
+[SerializeField] private float rollChargeTimer = 0.7f;
+[SerializeField] private int rollCost = 20;
+
+private bool isCharging = false;
+private float chargeAmount = 0;
+private float chargeMax = 100f;
+private Coroutine rollChargeCoroutine; <span class="code-note">// 3</span>
+private bool canSuperRoll = true;</code></pre>
+                    </div>
+                    <aside class="annotation-list" aria-label="PlayerController context annotations">
+                      <div class="annotation">
+                        <b>1. The controller was already broad</b>
+                        <p>The same frame loop was coordinating movement, camera-facing behavior, dash, snowstorm, interaction, throwing, reload, menus, and Super Roll.</p>
+                      </div>
+                      <div class="annotation">
+                        <b>2. Super Roll affected other abilities</b>
+                        <p>The charge state also gated normal throwing, which made the ability feel less isolated than a spawned snowball behavior needed to be.</p>
+                      </div>
+                      <div class="annotation">
+                        <b>3. Temporary object state lived in the player</b>
+                        <p>The player controller held the active snowball reference, charge UI, charge timing, charge amount, coroutine, cost, and unlock flags.</p>
+                      </div>
+                    </aside>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-card">
+                <div class="timeline-label">3. Removal: <span>Removing the old charge model</span></div>
+                <p>Removing the charge-up was my first step toward giving each class a clear responsibility. The player controller handles aiming and launch, and the snowball controls how it rolls, grows, and handles impact. I value the single responsibility principle because it lets me tune the snowball's behavior directly on the object itself and decouple that behavior from the player's controls.</p>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-card">
+                <div class="timeline-label">4. Input lifecycle: <span>Super Roll now follows the shape of the player action.</span></div>
+                <p>I kept Super Roll input in <code>PlayerController</code> because it already handles most player input and checks whether abilities can be used. A valid press starts aiming, and releasing during an active aim launches the snowball.</p>
+                <p>Launch is the handoff. From that point on, <code>GiantSnowball</code> manages its own behavior.</p>
+
+                <div class="code-compare">
+                  <div class="code-compare-header">
+                    <h4>Super Roll input before and after</h4>
+                  </div>
+                  <div class="code-columns">
+                    <div class="code-column">
+                      <h5>Before: Polling in <code>Update()</code></h5>
+                      <p>During gameplay, <code>Update()</code> called <code>CheckForSuperRoll()</code> each frame. That method handled press and release in one <code>if</code>/<code>else if</code> chain.</p>
+<pre class="code-proof"><code>private void CheckForSuperRoll()
+{
+    if (superRoll.action.IsPressed() &amp;&amp; !isCharging
+        &amp;&amp; GetCurrentSnowballs() &gt;= 10)
+    {
+        isThrowing = false;
+        isCharging = true;
+
+        newGiantSnowball = Instantiate(giantSnowball);
+        newGiantSnowball.transform.position = rollPoint.position;
+
+        rollChargeCoroutine = StartCoroutine(SuperRollCharge());
+        chargeArrow.gameObject.SetActive(true);
+    }
+    else if (superRoll.action.WasReleasedThisFrame()
+        &amp;&amp; newGiantSnowball != null)
+    {
+        StopCoroutine(rollChargeCoroutine);
+        isCharging = false;
+
+        Vector3 rollDir = CalculateThrowDirection(rollPoint.position, true);
+        rollDir.y = 0f;
+        newGiantSnowball.Roll(rollDir, rollForce, 2f);
+
+        ChangeCurrentSnowballs(-rollCost);
+        newGiantSnowball = null;
+    }
+}</code></pre>
+                    </div>
+                    <div class="code-column">
+                      <h5>After: Input event callbacks</h5>
+                      <p>The controller still validates input. The press callback returns early if the player can't start aiming, and the release callback returns early if no aim is active.</p>
+<pre class="code-proof"><code>private void OnEnable()
+{
+    superRoll.action.performed += StartAimingSuperRoll;
+    superRoll.action.canceled += StopAimingSuperRoll;
+}
+
+private void StartAimingSuperRoll(InputAction.CallbackContext context)
+{
+    if (isAimingSuperRoll || GetCurrentSnowballs() &lt; rollCost) return;
+
+    isThrowing = false;
+    isAimingSuperRoll = true;
+    StartCoroutine(AimArrow());
+}
+
+private void StopAimingSuperRoll(InputAction.CallbackContext context)
+{
+    if (!isAimingSuperRoll) return;
+    isAimingSuperRoll = false;
+
+    GiantSnowball newGiantSnowball = Instantiate(giantSnowball);
+    newGiantSnowball.transform.position = rollPoint.position;
+
+    Vector3 rollDir = CalculateThrowDirection(rollPoint.position, true);
+    rollDir.y = 0f;
+
+    newGiantSnowball.Roll(rollDir, rollForce);
+    ChangeCurrentSnowballs(-rollCost);
+}</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-card">
+                <div class="timeline-label">5. Revamping Giant Snowball: <span>Taking control of its own behavior</span></div>
+                <p><code>GiantSnowball</code> now initializes its Rigidbody, rolls in the chosen direction, grows over time, handles impact, and destroys itself. Growth is controlled with serialized size values, roll time, and an <code>AnimationCurve</code>, so the feel can be tuned without moving that logic back into the player controller.</p>
+
+                <div class="annotated-code">
+                  <div class="annotated-code-header">
+                    <h4>Code Lens: object-owned snowball lifecycle</h4>
+                    <p>This excerpt shows the other half of the refactor: after launch, the snowball owns its own timed behavior.</p>
+                  </div>
+                  <div class="annotated-code-body">
+                    <div>
+<pre class="code-proof"><code>[RequireComponent(typeof(Rigidbody))]
+public class GiantSnowball : Snowball
+{
+    [SerializeField] private float minSize = 0.5f;
+    [SerializeField] private float maxSize = 3f;
+    [SerializeField] private float rollTime = 2f;
+    <span class="mark">[SerializeField] private AnimationCurve scaleOverRollTime;</span> <span class="code-note">// 1</span>
+
+    void Awake()
+    {
+        rb = GetComponent&lt;Rigidbody&gt;();
+    }
+
+    public void Roll(Vector3 rollDir, float rollForce)
+    {
+        rb.linearVelocity = rollDir * rollForce;
+        <span class="mark">StartCoroutine(ExecuteRoll(rollDir, rollForce));</span> <span class="code-note">// 2</span>
+    }
+
+    private IEnumerator ExecuteRoll(Vector3 rollDir, float rollForce)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime &lt; rollTime)
+        {
+            rb.linearVelocity = rollDir * rollForce;
+            elapsedTime += Time.deltaTime;
+
+            float rollRatio = Mathf.Clamp01(elapsedTime / rollTime);
+            float newSize = Mathf.Lerp(minSize, maxSize, scaleOverRollTime.Evaluate(rollRatio));
+            transform.localScale = Vector3.one * newSize;
+
+            yield return null;
+        }
+
+        Instantiate(impact, transform.position, transform.rotation);
+        Destroy(gameObject);
+    }
+}</code></pre>
+                    </div>
+                    <aside class="annotation-list" aria-label="GiantSnowball code annotations">
+                      <div class="annotation">
+                        <b>1. Tuning lives with the object</b>
+                        <p>The growth curve and size range belong to the snowball, so tuning the feel does not push logic back into the controller.</p>
+                      </div>
+                      <div class="annotation">
+                        <b>2. The snowball governs its own behavior</b>
+                        <p>After launch, <code>ExecuteRoll()</code> coordinates movement, growth, the impact effect, and cleanup inside <code>GiantSnowball</code>.</p>
+                      </div>
+                    </aside>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-card">
+                <div class="timeline-label">6. Learning: <span>When a press counts</span></div>
+                <p>I like to look for small things I can improve as I work. One hiccup here was figuring out when to start aiming. My first instinct was to use <code>started</code>, which can fire as soon as the trigger begins to move. <code>performed</code> fires once the input reaches the press threshold, which is when I want to check whether the player can start aiming.</p>
+                <p>One edge case helped me think through the timing. A player could hold the trigger with too few snowballs, reload while still holding, then release and launch a roll that should never have started. I check the cost when the press registers, and release only launches the snowball if aiming actually started.</p>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-card">
+                <div class="timeline-label">7. Future work: <span>Refactoring PlayerController</span></div>
+                <p>If I had more time, I'd review <code>PlayerController</code> from top to bottom and apply the same single responsibility principle to the rest of the ability logic, looking at what belongs in the controller and what each ability should own. For this task, that would have been too much reinvention for the schedule. The better choice was to make the feature I touched clearer while keeping the surrounding codebase familiar.</p>
+                <p>This refactor shows how I can simplify how input is handled and separate it from the behavior it triggers, making the code easier to maintain.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </details>
+
+      <details class="system-card">
+        <summary><h2 class="system-tab-title">Data-Driven Pickups</h2></summary>
+        <div class="system-card-body">
+          <div class="timeline">
+            <article class="timeline-item">
+              <div class="timeline-card">
+                <div class="timeline-label">1. Starting point: <span>Coins left after a wave</span></div>
+                <p>After a wave, coins could still be scattered around the map. They already flew toward the player at close range, but collecting them all meant circling the arena before shopping. My task was to have the player automatically collect the leftover coins when the shop opened.</p>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-card">
+                <div class="timeline-label">2. Pickup data: <span>One component, different rewards</span></div>
+                <p>Penny, nickel, and health pickups already shared a script, with settings stored on each prefab. I moved those settings into <code>PickupSO</code> ScriptableObjects. Each prefab still uses the same <code>Pickup</code> component and points it to an asset with that pickup's reward and movement settings. I also expanded <code>CoinManager</code> into <code>PickupManager</code> so one manager could track active pickups and apply both kinds of rewards.</p>
+
+                <figure class="code-compare">
+                  <figcaption class="code-compare-header">
+                    <h4>Where pickup settings live</h4>
+                  </figcaption>
+                  <div class="code-columns">
+                    <div class="code-column">
+                      <h5>Before</h5>
+                      <div class="pickup-data-node">Each prefab uses the shared <code>Pickup</code> script</div>
+                      <div class="pickup-data-connector">Stores settings on <span aria-hidden="true">&darr;</span></div>
+                      <div class="pickup-data-node">
+                        <strong>Its own <code>Pickup</code> component</strong>
+                        <dl class="pickup-data-rewards">
+                          <dt>Penny</dt><dd>1 coin</dd>
+                          <dt>Nickel</dt><dd>5 coins</dd>
+                          <dt>Health pickup</dt><dd>20 health</dd>
+                        </dl>
+                      </div>
+                    </div>
+                    <div class="code-column">
+                      <h5>After</h5>
+                      <div class="pickup-data-node">Each prefab uses the shared <code>Pickup</code> script</div>
+                      <div class="pickup-data-connector">Reads settings from <span aria-hidden="true">&darr;</span></div>
+                      <div class="pickup-data-node">
+                        <strong>Its assigned <code>PickupSO</code> asset</strong>
+                        <dl class="pickup-data-rewards">
+                          <dt>Penny</dt><dd>1 coin</dd>
+                          <dt>Nickel</dt><dd>5 coins</dd>
+                          <dt>Health pickup</dt><dd>25 health</dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                </figure>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-card">
+                <div class="timeline-label">3. Shop opening: <span>Choosing how pickups collect</span></div>
+                <p>Here, my task was to solve a specific issue: handling the leftover pickups when the shop opens. However, our team hadn't settled on a single solution yet. In these scenarios, I always try to design a system that could handle a variety of potential solutions.</p>
+                <p>I set up each <code>PickupSO</code> to specify its default collection behavior. <code>Normal</code> keeps the close-range behavior. <code>AlwaysAttract</code> pulls pickups toward the player from wherever they landed, and <code>Instant</code> grants the reward immediately. When the shop opens, the team can override the mode on active pickups by reward type. In the gameplay scene, coins use <code>AlwaysAttract</code> so players can see them fly in as the shop opens.</p>
+
+                <div class="code-compare">
+                  <div class="code-compare-header">
+                    <h4>Choosing a shop-open mode by reward type</h4>
+                    <p><code>PickupManager</code> reads the reward and mode pairs from an Inspector list. In the workshop scene, the same shop opening attracts coins and collects health instantly. A reward type left out of the list keeps its current behavior.</p>
+                  </div>
+<pre class="code-proof"><code>List&lt;PickupRewardType&gt; processedRewardTypes = new List&lt;PickupRewardType&gt;();
+foreach (var rewardTypeEntry in rewardTypesToApplyBehavior)
+{
+    if (!processedRewardTypes.Contains(rewardTypeEntry.rewardType))
+    {
+        ApplyPickupCollectionBehaviorModeToActive(
+            rewardTypeEntry.collectionBehavior,
+            rewardTypeEntry.rewardType);
+        processedRewardTypes.Add(rewardTypeEntry.rewardType);
+    }
+}</code></pre>
+                </div>
+              </div>
+            </article>
+
+            <article class="timeline-item" id="pickup-code-review">
+              <div class="timeline-card">
+                <div class="timeline-label">4. Code review: <span>Finishing the shop-open pickup pass</span></div>
+                <p>I like to review my pull requests and test them in Unity. For this change, I traced what would happen if the shop opened in <code>Instant</code> mode with several pickups still on the map.</p>
+
+                <div class="code-compare">
+                  <div class="code-compare-header">
+                    <h4>Applying the shop-open collection mode</h4>
+                  </div>
+                  <div class="code-columns">
+                    <div class="code-column">
+                      <h5>Before</h5>
+                      <p><code>Instant</code> removes a pickup from the dictionary mid-loop, so <code>foreach</code> can throw when it advances.</p>
+                      <!-- PickupManager.cs from local Git blob 8a7f6b5b5289d9fff4cf10756fc780818ea5e88d -->
+<pre class="code-proof"><code>foreach (var pickup in pickupsById)
+{
+    pickup.Value.CollectionBehavior = mode;
+    pickup.Value.SetCollectionBehavior();
+}</code></pre>
+                    </div>
+                    <div class="code-column">
+                      <h5>After</h5>
+                      <p>I apply the new mode from a separate list so pickups can unregister without interrupting the loop.</p>
+<pre class="code-proof"><code>foreach (var pickup in pickupsById)
+{
+    if (pickup.Value == null)
+    {
+        pickupsToRemove.Add(pickup.Key);
+        continue;
+    }
+
+    pickupsToUpdate.Add(pickup.Value);
+}
+
+for (int i = 0; i &lt; pickupsToRemove.Count; i++)
+{
+    pickupsById.Remove(pickupsToRemove[i]);
+}
+
+for (int i = 0; i &lt; pickupsToUpdate.Count; i++)
+{
+    if (pickupsToUpdate[i] == null)
+    {
+        continue;
+    }
+
+    pickupsToUpdate[i].CollectionBehavior = mode;
+    pickupsToUpdate[i].SetCollectionBehavior();
+}</code></pre>
+                    </div>
+                  </div>
+                </div>
+
+                <p>This work shows how I can integrate ScriptableObjects into an existing gameplay system and make it easier for the team to tune and extend.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </details>
+
+      <details class="system-card">
+        <summary><h2 class="system-tab-title">Shop Spawning</h2></summary>
+        <div class="system-card-body">
+          <p>The shop originally appeared in one central location, which made the player spend too much time crossing the map after a combat round. The assigned task was to make the shop spawn from one of several preset spots based on the player's location.</p>
+          <p>There was some discussion around random spawning, but I chose authored transforms because they fit the real production constraint. The map has enough terrain and placement issues that fully random spawning would require heavier validation to avoid awkward or unreachable results. With six controlled locations, a simple nearest-location scan was clearer and more reliable than a cleverer search system.</p>
+          <p>This was less about algorithmic complexity and more about trustworthy placement. For the scale of the feature, the right answer was the one the team could author, inspect, and tune quickly.</p>
+        </div>
+      </details>
+    </div>
+  </main>
+</body>
+</html>
