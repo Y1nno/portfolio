@@ -3,8 +3,6 @@
     {
       title: "Snowmageddon",
       summary: "Tiny Cowboy arcade snowball combat project where I refactored and extended gameplay systems inside an existing Unity codebase.",
-      role: "Gameplay Programmer / Co-Developer",
-      tech: "Unity / C#",
       systems: "Ability refactor, data-driven pickups, shop spawning.",
       href: "snowmageddon.html",
       poster: "resources/snowmageddon/snowmageddon-static.jpg",
@@ -13,8 +11,6 @@
     {
       title: "P.U.F.F.-N.",
       summary: "A relaxing Unity exploration game focused on physics-informed puffin flight, traversal, and player-readable movement.",
-      role: "Gameplay Programmer",
-      tech: "Unity 6 / C#",
       systems: "Flight systems, camera, traversal, recovery.",
       href: "puffn.html",
       image: "resources/puffn/puff-n-static-image.jpg",
@@ -23,8 +19,6 @@
     {
       title: "Untitled Spa Game",
       summary: "Spa management sim work centered on guests, resources, and player-planned appointment timing.",
-      role: "Co-Developer",
-      tech: "Unity / C#",
       systems: "NPC AI, Data Driven Interactions, UI Logic.",
       href: "",
       poster: "resources/untitled-spa-game/untitled-spa-game-static.png",
@@ -33,8 +27,6 @@
     {
       title: "Tides of Eternity",
       summary: "Combat prototype work focused on readable movement and flexible runtime status behavior.",
-      role: "Gameplay Programmer",
-      tech: "Unity / C#",
       systems: "Player Movement, Data Driven Systems, Combat.",
       href: "",
       poster: "resources/tides-of-eternity/tides-of-eternity-static.png",
@@ -47,8 +39,6 @@
     const fields = {
       title: selector.querySelector("[data-project-title]"),
       summary: selector.querySelector("[data-project-summary]"),
-      role: selector.querySelector("[data-project-role]"),
-      tech: selector.querySelector("[data-project-tech]"),
       systems: selector.querySelector("[data-project-systems]"),
       link: selector.querySelector("[data-project-link]"),
       video: selector.querySelector("[data-project-video]")
@@ -142,8 +132,6 @@
       switchTimeoutId = window.setTimeout(() => {
         fields.title.textContent = project.title;
         fields.summary.textContent = project.summary;
-        fields.role.textContent = project.role;
-        fields.tech.textContent = project.tech;
         fields.systems.textContent = project.systems;
         if (project.href) {
           fields.link.href = project.href;

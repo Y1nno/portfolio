@@ -516,9 +516,6 @@
 }
 
 .home-page .selector-details {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
   margin: 0 0 14px;
   padding: 0;
   background: rgb(255 255 255 / 10%);
@@ -644,10 +641,6 @@
   }
 
   .selector-stats {
-    grid-template-columns: 1fr;
-  }
-
-  .home-page .selector-details {
     grid-template-columns: 1fr;
   }
 
